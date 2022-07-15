@@ -1,3 +1,4 @@
+const alertError = 'Sorry, we haven\'t found any recipes for these filters.';
 export async function fromFoodIngredient(param) {
   try {
     const { meals } = await fetch(
@@ -7,6 +8,7 @@ export async function fromFoodIngredient(param) {
     return meals;
   } catch (e) {
     console.log(e);
+    global.alert(alertError);
   }
 }
 
@@ -18,7 +20,7 @@ export async function fromFoods(param) {
     console.log(meals);
     return meals;
   } catch (e) {
-    console.log(e);
+    e === null && global.alert(alertError);
   }
 }
 
@@ -30,7 +32,7 @@ export async function fromDrinkIngredient(param) {
     console.log(drinks);
     return drinks;
   } catch (e) {
-    console.log(e);
+    global.alert(alertError);
   }
 }
 
@@ -42,6 +44,6 @@ export async function fromDrinks(param) {
     console.log(drinks);
     return drinks;
   } catch (e) {
-    console.log(e);
+    global.alert(alertError);
   }
 }

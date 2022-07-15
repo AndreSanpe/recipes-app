@@ -1,16 +1,27 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import context from '../context/context';
 
 function SearchBar() {
   const {
-    states: { input, selectedOption }, functions: { setInput,
+    states: { input, selectedOption, meals }, functions: { setInput,
       setSelectedOption, requestFoodAPI, requestDrinkAPI },
   } = useContext(context);
 
+  const location = useLocation();
+
   const onClickSendButton = (e) => {
     e.preventDefault();
-    requestFoodAPI();
-    requestDrinkAPI();
+
+    if (location.pathname === '/foods') {
+      requestFoodAPI();
+    }
+    if (location.pathname === '/drinks') {
+      requestDrinkAPI();
+    }
+    if (meals.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
     setInput('');
     setSelectedOption('');
   };

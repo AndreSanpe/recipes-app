@@ -9,6 +9,8 @@ function Provider({ children }) {
   const [isBtnLoginDisabled, setIsBtnLoginDisabled] = useState(true);
   const [input, setInput] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -31,30 +33,30 @@ function Provider({ children }) {
     validateLogin();
   }, [email, password]);
 
-  const requestFoodAPI = () => {
+  const requestFoodAPI = async () => {
     switch (selectedOption) {
     case 'ingredient':
-      return request.fromFoodIngredient(input);
+      return setMeals(await request.fromFoodIngredient(input));
     case 'name':
-      return request.fromFoods(input);
+      return setMeals(await request.fromFoods(input));
     case 'first-letter':
       return input.length === 1
-        ? request.fromFoods(input)
+        ? setMeals(await request.fromFoods(input))
         : global.alert('Your search must have only 1 (one) character');
     default:
       return console.log('xablau');
     }
   };
 
-  const requestDrinkAPI = () => {
+  const requestDrinkAPI = async () => {
     switch (selectedOption) {
     case 'ingredient':
-      return request.fromDrinkIngredient(input);
+      return setDrinks(await request.fromDrinkIngredient(input));
     case 'name':
-      return request.fromDrinks(input);
+      return setDrinks(await request.fromDrinks(input));
     case 'first-letter':
       return input.length === 1
-        ? request.fromDrinks(input)
+        ? setDrinks(await request.fromDrinks(input))
         : global.alert('Your search must have only 1 (one) character');
     default:
       return console.log('xablau');
@@ -67,6 +69,8 @@ function Provider({ children }) {
     isBtnLoginDisabled,
     input,
     selectedOption,
+    meals,
+    drinks,
   };
 
   const functions = {

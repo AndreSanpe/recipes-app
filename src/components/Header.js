@@ -13,41 +13,39 @@ function Header() {
   const [searchBarTextState, setSearchBarTextState] = useState();
   const [title, setTitle] = useState('');
 
-  const getPathname = () => {
-    if (location.pathname === '/foods') {
-    // setUsesHeader(true);
-      setUsesSearchIcon(true);
-      setTitle('Foods');
-    } if (location.pathname === '/drinks') {
-    // setUsesHeader(true);
-      setUsesSearchIcon(true);
-      setTitle('Drinks');
-    } if (location.pathname === '/profile') {
-    // setUsesHeader(true);
-      setTitle('Profile');
-    } if (location.pathname === '/done-recipes') {
-    // setUsesHeader(true);
-      setTitle('Done Recipes');
-    } if (location.pathname === '/favorite-recipes') {
-    // setUsesHeader(true);
-      setTitle('Favorite Recipes');
-    }
-  };
-
-  const searchBarText = () => {
-    if (showSearchBar) {
-      return setSearchBarTextState('Esconder barra de pesquisa');
-    }
-    return setSearchBarTextState('Mostrar barra de pesquisa');
-  };
-
   useEffect(() => {
+    const getPathname = () => {
+      if (location.pathname === '/foods') {
+      // setUsesHeader(true);
+        setUsesSearchIcon(true);
+        setTitle('Foods');
+      } if (location.pathname === '/drinks') {
+      // setUsesHeader(true);
+        setUsesSearchIcon(true);
+        setTitle('Drinks');
+      } if (location.pathname === '/profile') {
+      // setUsesHeader(true);
+        setTitle('Profile');
+      } if (location.pathname === '/done-recipes') {
+      // setUsesHeader(true);
+        setTitle('Done Recipes');
+      } if (location.pathname === '/favorite-recipes') {
+      // setUsesHeader(true);
+        setTitle('Favorite Recipes');
+      }
+    };
     getPathname();
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
+    const searchBarText = () => {
+      if (showSearchBar) {
+        return setSearchBarTextState('Esconder barra de pesquisa');
+      }
+      return setSearchBarTextState('Mostrar barra de pesquisa');
+    };
     searchBarText();
-    console.log('entrou');
+    // console.log('entrou');
   }, [showSearchBar]);
 
   const turnOnSearchBar = () => {
@@ -57,7 +55,7 @@ function Header() {
     return setShowSearchBar(true);
   };
 
-  console.log(location);
+  // console.log(location);
   return (
     <div>
       <img data-testid="profile-top-btn" src={ profileIcon } alt="profile" />
