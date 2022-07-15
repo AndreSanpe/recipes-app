@@ -1,40 +1,11 @@
-import React, { useState } from 'react';
-import * as request from '../services';
+import React, { useContext } from 'react';
+import context from '../context/context';
 
 function SearchBar() {
-  const [input, setInput] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
-  const FirstLetter = 'first-letter';
-
-  const requestFoodAPI = () => {
-    switch (selectedOption) {
-    case 'ingredient':
-      return request.fromFoodIngredient(input);
-    case 'name':
-      return request.fromFoods(input);
-    case FirstLetter:
-      return input.length === 1
-        ? request.fromFoods(input)
-        : global.alert('Your search must have only 1 (one) character');
-    default:
-      return console.log('xablau');
-    }
-  };
-
-  const requestDrinkAPI = () => {
-    switch (selectedOption) {
-    case 'ingredient':
-      return request.fromDrinkIngredient(input);
-    case 'name':
-      return request.fromDrinks(input);
-    case FirstLetter:
-      return input.length === 1
-        ? request.fromDrinks(input)
-        : global.alert('Your search must have only 1 (one) character');
-    default:
-      return console.log('xablau');
-    }
-  };
+  const {
+    states: { input, selectedOption }, functions: { setInput,
+      setSelectedOption, requestFoodAPI, requestDrinkAPI },
+  } = useContext(context);
 
   const onClickSendButton = (e) => {
     e.preventDefault();
@@ -93,8 +64,8 @@ function SearchBar() {
             id="first-letter"
             type="radio"
             data-testid="first-letter-search-radio"
-            checked={ selectedOption === FirstLetter }
-            onChange={ () => setSelectedOption(FirstLetter) }
+            checked={ selectedOption === 'first-letter' }
+            onChange={ () => setSelectedOption('first-letter') }
           />
           First letter
         </label>
