@@ -5,12 +5,15 @@ import './App.css';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 import Provider from './context/Provider';
+import AllRoutes from './AllRoutes';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <Provider>
       <BrowserRouter>
         <Switch>
+          <AllRoutes />
           <Route exact path="/" component={ Login } />
           <Route exact path="/foods" component={ Recipes } />
         </Switch>
