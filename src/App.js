@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Provider from './context/Provider';
@@ -9,9 +9,7 @@ function App() {
   return (
     <Provider>
       <BrowserRouter>
-        <Switch>
-          <AllRoutes />
-        </Switch>
+        <AllRoutes />
       </BrowserRouter>
     </Provider>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -10,8 +10,7 @@ function Header() {
   // const [usesHeader, setUsesHeader] = useState(false);
   const [usesSearchIcon, setUsesSearchIcon] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState();
-  const [searchBarTextState, setSearchBarTextState] = useState();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Profile');
 
   useEffect(() => {
     const getPathname = () => {
@@ -47,33 +46,25 @@ function Header() {
     searchBarText();
     // console.log('entrou');
   }, [showSearchBar]);
-
-  const turnOnSearchBar = () => {
-    if (showSearchBar) {
-      return setShowSearchBar(false);
-    }
-    return setShowSearchBar(true);
-  };
-
-  // console.log(location);
   return (
     <div>
-      <img data-testid="profile-top-btn" src={ profileIcon } alt="profile" />
-      <button type="button" onClick={ () => history.push('/profile') }>Perfil</button>
+      <input
+        type="image"
+        src={ profileIcon }
+        alt="profile"
+        onClick={ () => history.push('/profile') }
+        data-testid="profile-top-btn"
+      />
       {usesSearchIcon
       && (
         <div>
-          <img
-            data-testid="search-top-btn"
+          <input
+            type="image"
             src={ searchIcon }
             alt="search icon"
-          />
-          <button
-            type="button"
             onClick={ turnOnSearchBar }
-          >
-            {searchBarTextState}
-          </button>
+            data-testid="search-top-btn"
+          />
           {showSearchBar && <SearchBar />}
         </div>
       )}

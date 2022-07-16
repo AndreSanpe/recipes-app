@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
@@ -35,7 +36,5 @@ function Drinks() {
           ))}
       </main>
     </>
-  );
-}
 
 export default Drinks;
