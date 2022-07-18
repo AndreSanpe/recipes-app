@@ -38,15 +38,6 @@ describe('Testa o componente Header', () => {
 
         const searchInput = await screen.findByRole('searchbox')
         expect(searchInput).toBeInTheDocument()
-
-        userEvent.click(searchImage)
-
-        expect(searchInput).not.toBeInTheDocument()
-        // const pageTitle = screen.getByTestId('page-title')
-        // expect(pageTitle).toBeInTheDocument()
-        // expect(pageTitle).toHaveTextContent('Foods')
-        //const foodsTitle = screen.getByRole('heading', { name: /foods/i})
-        // expect(foodsTitle).toBeInTheDocument()
     })
     it('Testa rota drinks', () => {
       const { history } = renderWithRouter(<App />);

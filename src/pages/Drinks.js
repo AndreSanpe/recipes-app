@@ -1,8 +1,8 @@
-
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const {
@@ -15,6 +15,8 @@ function Drinks() {
       <Header />
       <h1>página principal drinks</h1>
       <main>
+        {!drinks
+         && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
         {drinks && (drinks.length === 1
           ? (<Redirect to={ `/drinks/${drinks[0].idDrink}` } />)
           : (
@@ -35,6 +37,9 @@ function Drinks() {
             )))
           ))}
       </main>
+      <Footer />
     </>
+  );
+}
 
 export default Drinks;

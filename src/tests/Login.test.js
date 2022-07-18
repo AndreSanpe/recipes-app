@@ -3,11 +3,19 @@ import { render, screen } from '@testing-library/react';
 // import Login from '../pages/Login';
 import App from '../App'
 import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 
+const renderWithRouter = (component) => {
+    const history = createMemoryHistory();
+    return ({
+      ...render(<Router history={history}>{component}</Router>), history,
+    });
+  };
 
 describe('Testa o componente Login', () => {
     beforeEach( () => {
-        render(<App />);
+        renderWithRouter(<App />);
     })
     test('verifica se existe o input de email e senha na tela', () => {
         const inputEmail = screen.getByPlaceholderText(/email/i);

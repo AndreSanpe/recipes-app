@@ -4,7 +4,7 @@ import context from '../context/context';
 
 function SearchBar() {
   const {
-    states: { input, selectedOption, meals }, functions: { setInput,
+    states: { input, selectedOption }, functions: { setInput,
       setSelectedOption, requestFoodAPI, requestDrinkAPI },
   } = useContext(context);
 
@@ -18,9 +18,6 @@ function SearchBar() {
     }
     if (location.pathname === '/drinks') {
       requestDrinkAPI();
-    }
-    if (meals.length === 0) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     setInput('');
     setSelectedOption('');
