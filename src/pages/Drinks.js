@@ -6,15 +6,27 @@ import Footer from '../components/Footer';
 
 function Drinks() {
   const {
-    states: { drinks },
+    states: { drinks, drinkCategories },
   } = useContext(context);
   const MAX_CARDS = 12;
+  const MAX_CATEGORIES = 5;
 
   return (
     <>
       <Header />
       <h1>página principal drinks</h1>
       <main>
+        {drinkCategories && drinkCategories.map((category, index) => (
+          index < MAX_CATEGORIES && (
+            <button
+              type="button"
+              key={ index }
+              data-testid={ `${category.strCategory}-category-filter` }
+            >
+              {category.strCategory}
+            </button>
+          )
+        ))}
         {drinks && (drinks.length === 1
           ? (<Redirect to={ `/drinks/${drinks[0].idDrink}` } />)
           : (
