@@ -1,5 +1,4 @@
 import React from 'react';
-// import context from '../context/context';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,9 +6,15 @@ import Footer from '../components/Footer';
 function Profile() {
   const history = useHistory();
 
-  // pega email do local storage
-  const userData = JSON.parse(localStorage.getItem('user'));
-  const emailLocalSt = userData.email;
+  // chama LST
+  const callEmailFromStorage = () => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      return user.email;
+    }
+    return '';
+  };
 
   // handle click do logOut
   const handleClickLogout = () => {
@@ -20,8 +25,7 @@ function Profile() {
   return (
     <>
       <Header />
-      {/* <p data-testid="profile-email">{ email }</p> */}
-      <p data-testid="profile-email">{ emailLocalSt }</p>
+      <p data-testid="profile-email">{ callEmailFromStorage() }</p>
       <Link to="/done-recipes">
         <button
           type="button"
