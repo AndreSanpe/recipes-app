@@ -19,22 +19,20 @@ function Recipes() {
       <Header />
       <h1>página principal de receitas</h1>
       <main>
-        {!meals
-         && global.alert('Sorry, we haven\'t found any recipes for these filters.')}
         {meals && (meals.length === 1
           ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
           : (
             (meals.map((el, index) => (
               index < MAX_CARDS
               && (
-                <div key={ el.idMeal } data-testid={ `${el.idMeal}-recipe-card` }>
-                  <span data-testid={ `${el.idMeal}-card-name` }>
+                <div key={ el.idMeal } data-testid={ `${index}-recipe-card` }>
+                  <span data-testid={ `${index}-card-name` }>
                     { el.strMeal }
                   </span>
                   <img
                     src={ el.strMealThumb }
                     alt={ el.strMeal }
-                    data-testid={ `${el.idMeal}-card-img` }
+                    data-testid={ `${index}-card-img` }
                   />
                 </div>
               )
