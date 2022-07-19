@@ -38,10 +38,10 @@ function Provider({ children }) {
     case 'ingredient':
       return setMeals(await request.fromFoodIngredient(input));
     case 'name':
-      return setMeals(await request.fromFoods(input));
+      return setMeals(await request.fromFoodsName(input));
     case 'first-letter':
       return input.length === 1
-        ? setMeals(await request.fromFoods(input))
+        ? setMeals(await request.fromFoodsFirstLetter(input))
         : global.alert('Your search must have only 1 (one) character');
     default:
       return console.log('xablau');
@@ -53,10 +53,10 @@ function Provider({ children }) {
     case 'ingredient':
       return setDrinks(await request.fromDrinkIngredient(input));
     case 'name':
-      return setDrinks(await request.fromDrinks(input));
+      return setDrinks(await request.fromDrinksName(input));
     case 'first-letter':
       return input.length === 1
-        ? setDrinks(await request.fromDrinks(input))
+        ? setDrinks(await request.fromDrinksFirstLetter(input))
         : global.alert('Your search must have only 1 (one) character');
     default:
       return console.log('xablau');

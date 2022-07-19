@@ -2,11 +2,20 @@ import React from 'react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+
+const renderWithRouter = (component) => {
+  const history = createMemoryHistory();
+  return ({
+    ...render(<Router history={history}>{component}</Router>), history,
+  });
+};
 
 describe('Testa o componente SearchBar', () => {
   it('Verifica se a barra de pesquisa e os 3 filtros existem e estão funcionando',
     () => {
-      render(<App />);
+      renderWithRouter(<App />);
 
       const FOOD_SEARCH = 'chicken';
 

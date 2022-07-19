@@ -9,7 +9,7 @@ function Header() {
   const history = useHistory();
   // const [usesHeader, setUsesHeader] = useState(false);
   const [usesSearchIcon, setUsesSearchIcon] = useState(false);
-  const [showSearchBar, setShowSearchBar] = useState();
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const [title, setTitle] = useState('Profile');
 
   useEffect(() => {
@@ -36,16 +36,22 @@ function Header() {
     getPathname();
   }, [location.pathname]);
 
-  useEffect(() => {
-    const searchBarText = () => {
-      if (showSearchBar) {
-        return setSearchBarTextState('Esconder barra de pesquisa');
-      }
-      return setSearchBarTextState('Mostrar barra de pesquisa');
-    };
-    searchBarText();
-    // console.log('entrou');
-  }, [showSearchBar]);
+  const handleSearchBar = () => {
+    if (showSearchBar === false) {
+      setShowSearchBar(true);
+    } else { setShowSearchBar(false); }
+  };
+
+  // useEffect(() => {
+  //   const searchBarText = () => {
+  //     if (showSearchBar) {
+  //       return setSearchBarTextState('Esconder barra de pesquisa');
+  //     }
+  //     return setSearchBarTextState('Mostrar barra de pesquisa');
+  //   };
+  //   searchBarText();
+  //   // console.log('entrou');
+  // }, [showSearchBar]);
   return (
     <div>
       <input
@@ -62,7 +68,7 @@ function Header() {
             type="image"
             src={ searchIcon }
             alt="search icon"
-            onClick={ turnOnSearchBar }
+            onClick={ handleSearchBar }
             data-testid="search-top-btn"
           />
           {showSearchBar && <SearchBar />}
