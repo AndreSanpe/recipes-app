@@ -2,9 +2,10 @@ import React, { useEffect, useContext } from 'react';
 import context from '../context/context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import IngredientList from '../components/IngredientList';
 
 function RecipeDetails() {
-  const { functions: { setRecipeDetail, setSecomend },
+  const { functions: { setRecipeDetail, setRecomend },
     states: { recipeDetail, recomend } } = useContext(context);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function RecipeDetails() {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`)
           .then((resp) => resp.json());
         setRecipeDetail({ recipe: response.drinks[0], type: 'drink' });
+        // console.log(response.drinks);
       }
     };
     getDetailedRecipe(id);
@@ -33,27 +35,29 @@ function RecipeDetails() {
         const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
           .then((resp) => resp.json());
         const recomendedDrinks = response.drinks.slice(0, SIX);
-        setSecomend(recomendedDrinks);
+        setRecomend(recomendedDrinks);
       }
 
       if (window.location.pathname.includes('/drinks')) {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
           .then((resp) => resp.json());
         const recomendedMeals = response.meals.slice(0, SIX);
-        setSecomend(recomendedMeals);
+        setRecomend(recomendedMeals);
       }
     };
 
     getRecommendation();
-  }, [setRecipeDetail, setSecomend]);
+  }, []);
 
   // monta info das receitas
   const renderRecipe = (recipe) => {
-    const ingredientList = Object.entries(recipe).filter((key) => key[0]
-      .includes('strIngredient')).filter((ing) => ing[1] !== null && ing[1] !== '');
+    // const ingredientList = Object.entries(recipe).filter((key) => key[0]
+    //   .includes('strIngredient')).filter((ing) => ing[1] !== null && ing[1] !== '');
+    // // setIngredientList(ingredientList);
 
-    const mesurementList = Object.entries(recipe).filter((key) => key[0]
-      .includes('trMeasure')).filter((mes) => mes[1] !== null && mes[1] !== '');
+    // const mesurementList = Object.entries(recipe).filter((key) => key[0]
+    //   .includes('trMeasure')).filter((mes) => mes[1] !== null && mes[1] !== '');
+    // // setMesurementList(mesurementList);
 
     if (recipeDetail.type === 'food') {
       const videoURL = recipe.strYoutube.split('=')[1];
@@ -68,7 +72,8 @@ function RecipeDetails() {
           />
           <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
           <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
-          <ul>
+          <IngredientList />
+          {/* <ul>
             {
               ingredientList.map((ing, index) => (
                 <p
@@ -80,7 +85,7 @@ function RecipeDetails() {
               ))
 
             }
-          </ul>
+          </ul> */}
           <p data-testid="instructions">{recipe.strInstructions}</p>
           <iframe
             data-testid="video"
@@ -101,7 +106,6 @@ function RecipeDetails() {
                     className="recomend-img"
                     src={ el.strDrinkThumb }
                     alt={ el.strDrink }
-                    // data-testid={ `${index}-recomendation-card` }
                   />
                 </section>
               ))
@@ -122,7 +126,6 @@ function RecipeDetails() {
             Share
           </button>
           <button
-            // style={ { position: 'fixed', bottom: '0' } }
             type="button"
             data-testid="favorite-btn"
           >
@@ -143,7 +146,8 @@ function RecipeDetails() {
           />
           <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
           <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
-          <ul>
+          <IngredientList />
+          {/* <ul>
             {
               ingredientList.map((ing, index) => (
                 <p
@@ -155,7 +159,7 @@ function RecipeDetails() {
               ))
 
             }
-          </ul>
+          </ul> */}
           <p data-testid="instructions">{recipe.strInstructions}</p>
           <section>
             <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
@@ -189,14 +193,12 @@ function RecipeDetails() {
             Start Recipe
           </button>
           <button
-            // style={ { position: 'fixed', bottom: '0' } }
             type="button"
             data-testid="share-btn"
           >
             Share
           </button>
           <button
-            // style={ { position: 'fixed', bottom: '0' } }
             type="button"
             data-testid="favorite-btn"
           >
