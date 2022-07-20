@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
+import RecipeInProgress from '../components/RecipeInProgress';
 // import { Link } from 'react-router-dom';
 
 function Recipes() {
@@ -12,7 +13,7 @@ function Recipes() {
 
   const MAX_CARDS = 12;
 
-  console.log(meals);
+  // console.log(meals);
 
   return (
     <>
@@ -39,6 +40,7 @@ function Recipes() {
             )))
           ))}
       </main>
+      <RecipeInProgress />
       <Footer />
     </>
   );
