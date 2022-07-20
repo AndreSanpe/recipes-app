@@ -13,8 +13,18 @@ function FoodsDetails() {
     if (arrayObjReceitasLS) {
       const arrayObjReceitas = JSON.parse(arrayObjReceitasLS);
       const isDone = arrayObjReceitas
-        .some((doneRecipe) => doneRecipe.idMeal === recipe.idMeal);
+        .some((doneRecipe) => doneRecipe.id === recipe.idMeal);
       return !isDone;
+    } return true;
+  };
+
+  const showButtonContinueRecipe = () => {
+    const arrayObjInProg = localStorage.getItem('inProgressRecipes');
+    if (arrayObjInProg) {
+      const inProgRecipes = JSON.parse(arrayObjReceitasLS);
+      const isInProgress = inProgRecipes
+        .some((inProgRec) => inProgRec.id === recipe.idMeal);
+      return !isInProgress;
     } return true;
   };
 
@@ -63,6 +73,20 @@ function FoodsDetails() {
               data-testid="start-recipe-btn"
             >
               Start Recipe
+            </button>
+          </Link>
+        )
+      }
+
+      {
+        showButtonContinueRecipe() && (
+          <Link to={ `/foods/${recipe.idMeal}/in-progress` }>
+            <button
+              style={ { position: 'fixed', bottom: '0' } }
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              Continue Recipe
             </button>
           </Link>
         )
