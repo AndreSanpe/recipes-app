@@ -1,23 +1,27 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientList from './IngredientList';
 
 function DrinksDetails() {
-  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
-  const [btnText, setBtnText] = useState([]);
+  const { states: { recipeDetail: { recipe }, recomend, btnText },
+    functions: { setBtnText } } = useContext(context);
 
   useEffect(() => {
     const showButtonContinueRecipe = () => {
-      const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const inProgCocktails = inProgress.cocktails;
-      const arrayOfInProgC = Object.keys(inProgCocktails);
-      const isInProg = arrayOfInProgC.some((inProgC) => inProgC.id === recipe.idDrink);
-      if (isInProg) setBtnText('Continue Recipe');
+      const inProgress = localStorage.getItem('inProgressRecipes');
+      if (inProgress) {
+        const inProgressObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const inProgCocktails = inProgressObj.cocktails;
+        const arrayOfInProgC = Object.keys(inProgCocktails);
+        const isInProg = arrayOfInProgC.some((inProgC) => inProgC === recipe.idDrink);
+        if (isInProg) setBtnText('Continue Recipe');
+      }
     };
 
     showButtonContinueRecipe();
-  });
+  }, [setBtnText, recipe.idDrink]);
+
   // função para retornar botão start recipe ou não
   const showButtonStartRecipe = () => {
     const arrayObjReceitasLS = localStorage.getItem('doneRecipes');
@@ -68,7 +72,7 @@ function DrinksDetails() {
               type="button"
               data-testid="start-recipe-btn"
             >
-              {btnText}
+              { btnText }
             </button>
           </Link>
         )

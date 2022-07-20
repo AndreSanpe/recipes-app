@@ -15,6 +15,7 @@ function Provider({ children }) {
   const [recomend, setRecomend] = useState([]);
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
   const [doneRecipes, SetDoneRecipes] = useState([]);
+  const [btnText, setBtnText] = useState('Start Recipe');
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -79,6 +80,7 @@ function Provider({ children }) {
     recomend,
     inProgressRecipes,
     doneRecipes,
+    btnText,
   };
 
   const functions = {
@@ -92,6 +94,7 @@ function Provider({ children }) {
     setRecomend,
     SetInProgressRecipes,
     SetDoneRecipes,
+    setBtnText,
   };
 
   return (

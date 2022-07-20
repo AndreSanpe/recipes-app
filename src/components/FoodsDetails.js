@@ -1,11 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientList from './IngredientList';
 
 function FoodsDetails() {
-  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
+  const { states: { recipeDetail: { recipe }, recomend, btnText },
+    functions: { setBtnText } } = useContext(context);
   const videoURL = recipe.strYoutube.split('=')[1];
+
+  useEffect(() => {
+    const showButtonContinueRecipe = () => {
+      const inProgress = localStorage.getItem('inProgressRecipes');
+      if (inProgress) {
+        const inProgressObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        const inProgMeals = inProgressObj.meals;
+        const arrayOfInProgM = Object.keys(inProgMeals);
+        const isInProg = arrayOfInProgM.some((inProgC) => inProgC === recipe.idMeal);
+        if (isInProg) setBtnText('Continue Recipe');
+      }
+    };
+
+    showButtonContinueRecipe();
+  }, [setBtnText, recipe.idMeal]);
 
   // função para retornar botão start recipe ou não
   const showButtonStartRecipe = () => {
@@ -15,16 +31,6 @@ function FoodsDetails() {
       const isDone = arrayObjReceitas
         .some((doneRecipe) => doneRecipe.id === recipe.idMeal);
       return !isDone;
-    } return true;
-  };
-
-  const showButtonContinueRecipe = () => {
-    const arrayObjInProg = localStorage.getItem('inProgressRecipes');
-    if (arrayObjInProg) {
-      const inProgRecipes = JSON.parse(arrayObjReceitasLS);
-      const isInProgress = inProgRecipes
-        .some((inProgRec) => inProgRec.id === recipe.idMeal);
-      return !isInProgress;
     } return true;
   };
 
@@ -72,25 +78,12 @@ function FoodsDetails() {
               type="button"
               data-testid="start-recipe-btn"
             >
-              Start Recipe
+              { btnText }
             </button>
           </Link>
         )
       }
 
-      {
-        showButtonContinueRecipe() && (
-          <Link to={ `/foods/${recipe.idMeal}/in-progress` }>
-            <button
-              style={ { position: 'fixed', bottom: '0' } }
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              Continue Recipe
-            </button>
-          </Link>
-        )
-      }
       {/* <Link to={ `/foods/${recipe.idMeal}/in-progress` }>
         <button
           style={ { position: 'fixed', bottom: '0' } }
