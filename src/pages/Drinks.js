@@ -1,32 +1,60 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
+import { fromDrinksName } from '../services';
+import { fetchDrinkCategories, handleDrinksFilter } from '../services/fetchCategories';
 
 function Drinks() {
+  const [loading, setLoading] = useState(true);
   const {
-    states: { drinks, drinkCategories },
+    states: { drinks, drinkCategories }, functions: { setDrinks, setDrinkCategories },
   } = useContext(context);
   const MAX_CARDS = 12;
   const MAX_CATEGORIES = 5;
+
+  useEffect(() => {
+    async function startDrinks() {
+      setDrinks(await fromDrinksName(''));
+      setDrinkCategories(await fetchDrinkCategories());
+      setLoading(false);
+    }
+    startDrinks();
+  }, []);
 
   return (
     <>
       <Header />
       <h1>página principal drinks</h1>
       <main>
-        {drinkCategories && drinkCategories.map((category, index) => (
-          index < MAX_CATEGORIES && (
-            <button
-              type="button"
-              key={ index }
-              data-testid={ `${category.strCategory}-category-filter` }
-            >
-              {category.strCategory}
-            </button>
-          )
-        ))}
+        {loading ? (
+          <div>
+            <h3>Carregando...</h3>
+          </div>
+        )
+          : (
+            <div>
+              {drinkCategories && drinkCategories.map((category, index) => (
+                index < MAX_CATEGORIES && (
+                // button que filtra por categorias
+                  <button
+                    type="button"
+                    key={ index }
+                    data-testid={ `${category.strCategory}-category-filter` }
+                    onClick={ async (e) => {
+                      setDrinks(await handleDrinksFilter(e));
+                    } }
+                  >
+                    {category.strCategory}
+                  </button>
+                )
+              ))}
+              {drinkCategories
+        && <button type="button" data-testid="All-category-filter">All</button>}
+            </div>
+          )}
+
         {drinks && (drinks.length === 1
           ? (<Redirect to={ `/drinks/${drinks[0].idDrink}` } />)
           : (

@@ -1,14 +1,17 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
 import { fromFoodsName } from '../services';
+import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
 // import { Link } from 'react-router-dom';
 
 function Recipes() {
+  const [loading, setLoading] = useState(true);
   const {
-    states: { meals, foodCategories }, functions: { setMeals },
+    states: { meals, foodCategories },
+    functions: { setMeals, setFoodCategories },
   } = useContext(context);
 
   const MAX_CARDS = 12;
@@ -16,8 +19,9 @@ function Recipes() {
 
   useEffect(() => {
     async function startMeal() {
-      console.log(setMeals);
-      setMeals(await fromFoodsName());
+      setMeals(await fromFoodsName(''));
+      setFoodCategories(await fetchFoodCategories());
+      setLoading(false);
     }
     startMeal();
   }, []);
@@ -27,17 +31,32 @@ function Recipes() {
       <Header />
       <h1>página principal de receitas</h1>
       <main>
-        {foodCategories && foodCategories.map((category, index) => (
-          index < MAX_CATEGORIES && (
-            <button
-              type="button"
-              key={ index }
-              data-testid={ `${category.strCategory}-category-filter` }
-            >
-              {category.strCategory}
-            </button>
-          )
-        ))}
+        {loading ? (
+          <div>
+            <h3>Carregando...</h3>
+          </div>
+        ) : (
+          <div>
+            {foodCategories && foodCategories.map((category, index) => (
+              index < MAX_CATEGORIES && (
+              // button que filtra por categorias
+                <button
+                  type="button"
+                  key={ index }
+                  data-testid={ `${category.strCategory}-category-filter` }
+                  onClick={ async (e) => {
+                    setMeals(await handleFoodsFilter(e));
+                  } }
+                >
+                  {category.strCategory}
+                </button>
+              )
+            ))}
+            {foodCategories
+        && <button type="button" data-testid="All-category-filter">All</button>}
+          </div>
+        ) }
+
         {meals && (meals.length === 1
           ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
           : (

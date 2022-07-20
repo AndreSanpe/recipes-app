@@ -88,6 +88,9 @@ function Provider({ children }) {
     requestFoodAPI,
     requestDrinkAPI,
     setMeals,
+    setDrinks,
+    setFoodCategories,
+    setDrinkCategories,
   };
 
   return (
