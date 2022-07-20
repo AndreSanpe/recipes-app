@@ -13,8 +13,8 @@ function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [recipeDetail, setRecipeDetail] = useState({ recipe: [], type: '' });
   const [recomend, setRecomend] = useState([]);
-  // const [ingredientList, setIngredientList] = useState([]);
-  // const [mesurementList, setMesurementList] = useState([]);
+  const [inProgressRecipes, SetInProgressRecipes] = useState([]);
+  const [doneRecipes, SetDoneRecipes] = useState([]);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -77,6 +77,8 @@ function Provider({ children }) {
     drinks,
     recipeDetail,
     recomend,
+    inProgressRecipes,
+    doneRecipes,
   };
 
   const functions = {
@@ -88,6 +90,8 @@ function Provider({ children }) {
     requestDrinkAPI,
     setRecipeDetail,
     setRecomend,
+    SetInProgressRecipes,
+    SetDoneRecipes,
   };
 
   return (
