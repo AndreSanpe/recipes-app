@@ -8,6 +8,8 @@ import { fetchDrinkCategories, handleDrinksFilter } from '../services/fetchCateg
 
 function Drinks() {
   const [loading, setLoading] = useState(true);
+  const [toggle, setToggle] = useState(false);
+
   const {
     states: { drinks, drinkCategories }, functions: { setDrinks, setDrinkCategories },
   } = useContext(context);
@@ -44,6 +46,10 @@ function Drinks() {
                     data-testid={ `${category.strCategory}-category-filter` }
                     onClick={ async (e) => {
                       setDrinks(await handleDrinksFilter(e));
+                      if (!loading && toggle) {
+                        setDrinks(await fromDrinksName(''));
+                      }
+                      setToggle(!toggle);
                     } }
                   >
                     {category.strCategory}

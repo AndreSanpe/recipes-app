@@ -9,6 +9,7 @@ import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategor
 
 function Recipes() {
   const [loading, setLoading] = useState(true);
+  const [toggle, setToggle] = useState(false);
   const {
     states: { meals, foodCategories },
     functions: { setMeals, setFoodCategories },
@@ -46,6 +47,10 @@ function Recipes() {
                   data-testid={ `${category.strCategory}-category-filter` }
                   onClick={ async (e) => {
                     setMeals(await handleFoodsFilter(e));
+                    if (!loading && toggle) {
+                      setMeals(await fromFoodsName(''));
+                    }
+                    setToggle(!toggle);
                   } }
                 >
                   {category.strCategory}
