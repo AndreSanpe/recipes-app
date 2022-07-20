@@ -61,6 +61,7 @@ function RecipeDetails() {
       return (
         <div>
           <img
+            className="w-75"
             data-testid="recipe-photo"
             alt={ recipe.strMeal }
             src={ recipe.strMealThumb }
@@ -82,24 +83,51 @@ function RecipeDetails() {
           </ul>
           <p data-testid="instructions">{recipe.strInstructions}</p>
           <iframe
+            data-testid="video"
             title={ recipe.strMeal }
             width="420"
             height="315"
             src={ `https://www.youtube.com/embed/${videoURL}` }
           />
-          <div style={ { display: 'flex' } }>
+
+          <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
             {
               recomend.map((el, index) => (
-                <img
-                  className="recomend-img"
-                  src={ el.strDrinkThumb }
-                  alt={ el.strDrink }
-                  key={ el.index }
-                  data-testid={ `${index}-recomendation-card` }
-                />
+                <section data-testid={ `${index}-recomendation-card` } key={ el.index }>
+                  <p data-testid={ `${index}-recomendation-title` }>
+                    { el.strDrink }
+                  </p>
+                  <img
+                    className="recomend-img"
+                    src={ el.strDrinkThumb }
+                    alt={ el.strDrink }
+                    // data-testid={ `${index}-recomendation-card` }
+                  />
+                </section>
               ))
             }
           </div>
+          <button
+            style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
+          <button
+            // style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="share-btn"
+          >
+            Share
+          </button>
+          <button
+            // style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="favorite-btn"
+          >
+            favoritar
+          </button>
         </div>
       );
     }
@@ -108,12 +136,13 @@ function RecipeDetails() {
       return (
         <div>
           <img
+            className="w-75"
             data-testid="recipe-photo"
             alt={ recipe.strDrink }
             src={ recipe.strDrinkThumb }
           />
           <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-          <h4 data-testid="recipe-category">{recipe.srtAlcoholic}</h4>
+          <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
           <ul>
             {
               ingredientList.map((ing, index) => (
@@ -128,21 +157,51 @@ function RecipeDetails() {
             }
           </ul>
           <p data-testid="instructions">{recipe.strInstructions}</p>
-          <section style={ { position: 'absolute', maxWidth: '300px' } }>
-            <div style={ { display: 'flex', position: 'relative', width: '200px' } }>
+          <section>
+            <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
               {
                 recomend.map((el, index) => (
-                  <img
-                    className="recomend-img"
-                    src={ el.strMealThumb }
-                    alt={ el.strMeal }
-                    key={ el.index }
-                    data-testid={ `${index}-recomendation-card` }
-                  />
+                  <section key={ el.index }>
+                    <figure>
+                      <img
+                        className="recomend-img"
+                        src={ el.strMealThumb }
+                        alt={ el.strMeal }
+                        data-testid={ `${index}-recomendation-card` }
+                      />
+                      <figcaption
+                        data-testid={ `${index}-recomendation-title` }
+                      >
+                        { el.strMeal }
+
+                      </figcaption>
+                    </figure>
+                  </section>
                 ))
               }
             </div>
           </section>
+          <button
+            style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
+          <button
+            // style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="share-btn"
+          >
+            Share
+          </button>
+          <button
+            // style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="favorite-btn"
+          >
+            favoritar
+          </button>
         </div>
       );
     }
