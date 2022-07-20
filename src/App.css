@@ -54,3 +54,7 @@
 .drinkIcon, .mealIcon {
   max-height: 20vh;
 }
+
+.recomend-img {
+  width: 190px;
+}
