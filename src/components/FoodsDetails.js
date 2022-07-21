@@ -180,16 +180,14 @@ function FoodsDetails() {
         {'  '}
         <img alt="share" src={ shareIcon } />
       </button>
-      <button
+      <input
         style={ { marginLeft: '20px' } }
-        type="button"
+        type="image"
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
         src={ btnFavoriteRecipe }
         alt="favoritar"
-      >
-        <img alt="fav" src={ btnFavoriteRecipe } />
-      </button>
+      />
     </div>
   );
 }
