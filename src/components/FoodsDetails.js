@@ -1,17 +1,26 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientList from './IngredientList';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
 function FoodsDetails() {
-  const { states: { recipeDetail: { recipe }, recomend, btnText, btnShareTxt },
-    functions: { setBtnText, setBtnShareTxt } } = useContext(context);
+  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
+
+  // estados do COMPONENTE: botões
+  const [btnText, setBtnText] = useState('Start Recipe');
+  const [btnShareTxt, setBtnShareTxt] = useState('Share');
+
+  const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
+  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(unfavoriteRecipe);
+
+  const favoritedRecipe = <img alt="favorite this recipe" src={ blackHeartIcon } />;
 
   const videoURL = recipe.strYoutube.split('=')[1];
-  // const shareBtnImg = <img alt="share" src={ shareIcon } />;
 
   useEffect(() => {
     const showButtonContinueRecipe = () => {
@@ -45,6 +54,11 @@ function FoodsDetails() {
   const handleShareBtn = () => {
     copy(window.location.href);
     setBtnShareTxt('Link copied!');
+  };
+
+  // onClickBtnShare
+  const handleFavoriteBtn = () => {
+    setBtnFavoriteRecipe(favoritedRecipe);
   };
 
   return (
@@ -111,8 +125,9 @@ function FoodsDetails() {
         style={ { marginLeft: '20px' } }
         type="button"
         data-testid="favorite-btn"
+        onClick={ handleFavoriteBtn }
       >
-        favoritar
+        { btnFavoriteRecipe }
       </button>
     </div>
   );

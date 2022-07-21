@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import context from './context';
 import * as request from '../services';
+// import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -15,8 +16,10 @@ function Provider({ children }) {
   const [recomend, setRecomend] = useState([]);
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
   const [doneRecipes, SetDoneRecipes] = useState([]);
-  const [btnText, setBtnText] = useState('Start Recipe');
-  const [btnShareTxt, setBtnShareTxt] = useState('Share');
+  // const [btnText, setBtnText] = useState('Start Recipe');
+  // const [btnShareTxt, setBtnShareTxt] = useState('Share');
+  // const heartBeforeLike = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
+  // const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(heartBeforeLike);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -81,8 +84,9 @@ function Provider({ children }) {
     recomend,
     inProgressRecipes,
     doneRecipes,
-    btnText,
-    btnShareTxt,
+    // btnText,
+    // btnShareTxt,
+    // btnFavoriteRecipe,
   };
 
   const functions = {
@@ -96,8 +100,9 @@ function Provider({ children }) {
     setRecomend,
     SetInProgressRecipes,
     SetDoneRecipes,
-    setBtnText,
-    setBtnShareTxt,
+    // setBtnText,
+    // setBtnShareTxt,
+    // setBtnFavoriteRecipe,
   };
 
   return (
