@@ -37,13 +37,14 @@ function DrinksDetails() {
     const showButtonFavorite = () => {
       const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (stage) {
-        const isFavorite = stage.some((el) => el.id !== recipe.idDrink);
+        const isFavorite = stage.some((el) => el.id === recipe.idDrink);
         if (isFavorite) {
           console.log(isFavorite);
           setIsFavorited(true);
           setBtnFavoriteRecipe(blackHeartIcon);
         } else {
           setIsFavorited(false);
+          // setBtnFavoriteRecipe(blackHeartIcon);
         }
       }
     };
@@ -171,14 +172,16 @@ function DrinksDetails() {
         {'  '}
         <img alt="share" src={ shareIcon } />
       </button>
-      <input
+      <button
         style={ { marginLeft: '20px' } }
-        type="image"
+        type="button"
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
         src={ btnFavoriteRecipe }
         alt="favoritar"
-      />
+      >
+        <img alt="fav" src={ btnFavoriteRecipe } />
+      </button>
     </div>
   );
 }

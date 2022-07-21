@@ -42,13 +42,14 @@ function FoodsDetails() {
     const showButtonFavorite = () => {
       const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (stage) {
-        const isFavorite = stage.some((el) => el.id !== recipe.idMeal);
-        if (isFavorite) {
-          console.log(isFavorite);
-          setIsFavorited(true);
+        const thisRecipeIsFav = stage.some((el) => el.id === recipe.idMeal);
+        if (thisRecipeIsFav) {
+          console.log(thisRecipeIsFav);
           setBtnFavoriteRecipe(blackHeartIcon);
+          setIsFavorited(true);
         } else {
           setIsFavorited(false);
+          // setBtnFavoriteRecipe(blackHeartIcon);
         }
       }
     };
@@ -179,14 +180,16 @@ function FoodsDetails() {
         {'  '}
         <img alt="share" src={ shareIcon } />
       </button>
-      <input
-        // style={ { marginLeft: '20px' } }
-        type="image"
+      <button
+        style={ { marginLeft: '20px' } }
+        type="button"
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
         src={ btnFavoriteRecipe }
         alt="favoritar"
-      />
+      >
+        <img alt="fav" src={ btnFavoriteRecipe } />
+      </button>
     </div>
   );
 }
