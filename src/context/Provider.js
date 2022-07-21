@@ -14,6 +14,12 @@ function Provider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [foodCategories, setFoodCategories] = useState([]);
+  const [recipeDetail, setRecipeDetail] = useState({ recipe: [], type: '' });
+  const [recomend, setRecomend] = useState([]);
+  const [inProgressRecipes, SetInProgressRecipes] = useState([]);
+  const [doneRecipes, SetDoneRecipes] = useState([]);
+  const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
+  const [listFav, setListFav] = useState([]);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -78,6 +84,12 @@ function Provider({ children }) {
     drinks,
     drinkCategories,
     foodCategories,
+    recipeDetail,
+    recomend,
+    inProgressRecipes,
+    doneRecipes,
+    allFavoriteRecipes,
+    listFav,
   };
 
   const functions = {
@@ -91,6 +103,12 @@ function Provider({ children }) {
     setDrinks,
     setFoodCategories,
     setDrinkCategories,
+    setRecipeDetail,
+    setRecomend,
+    SetInProgressRecipes,
+    SetDoneRecipes,
+    setAllFavoriteRecipes,
+    setListFav,
   };
 
   return (
