@@ -6,11 +6,9 @@ function IngredientList() {
 
   const ingredientList = Object.entries(recipeDetail.recipe).filter((key) => key[0]
     .includes('strIngredient')).filter((ing) => ing[1] !== null && ing[1] !== '');
-    // setIngredientList(ingredientList);
 
   const mesurementList = Object.entries(recipeDetail.recipe).filter((key) => key[0]
     .includes('trMeasure')).filter((mes) => mes[1] !== null && mes[1] !== '');
-    // setMesurementList(mesurementList);
 
   return (
     <ul>
@@ -28,14 +26,5 @@ function IngredientList() {
     </ul>
   );
 }
-
-// IngredientList.propTypes = {
-//   ingredientList: PropTypes.arrayOf(
-//     PropTypes.shape({}).isRequired,
-//   ).isRequired,
-//   mesurementList: PropTypes.arrayOf(
-//     PropTypes.shape({}).isRequired,
-//   ).isRequired,
-// };
 
 export default IngredientList;

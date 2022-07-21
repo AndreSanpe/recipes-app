@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import context from './context';
 import * as request from '../services';
+import fetchFoodCategories, { fetchDrinkCategories } from '../services/fetchCategories';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,10 +12,14 @@ function Provider({ children }) {
   const [selectedOption, setSelectedOption] = useState('');
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+  const [foodCategories, setFoodCategories] = useState([]);
   const [recipeDetail, setRecipeDetail] = useState({ recipe: [], type: '' });
   const [recomend, setRecomend] = useState([]);
-  // const [ingredientList, setIngredientList] = useState([]);
-  // const [mesurementList, setMesurementList] = useState([]);
+  const [inProgressRecipes, SetInProgressRecipes] = useState([]);
+  const [doneRecipes, SetDoneRecipes] = useState([]);
+  const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
+  const [listFav, setListFav] = useState([]);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -38,6 +43,7 @@ function Provider({ children }) {
   }, [email, password]);
 
   const requestFoodAPI = async () => {
+    setFoodCategories(await fetchFoodCategories());
     switch (selectedOption) {
     case 'ingredient':
       return setMeals(await request.fromFoodIngredient(input));
@@ -53,6 +59,7 @@ function Provider({ children }) {
   };
 
   const requestDrinkAPI = async () => {
+    setDrinkCategories(await fetchDrinkCategories());
     switch (selectedOption) {
     case 'ingredient':
       return setDrinks(await request.fromDrinkIngredient(input));
@@ -75,8 +82,14 @@ function Provider({ children }) {
     selectedOption,
     meals,
     drinks,
+    drinkCategories,
+    foodCategories,
     recipeDetail,
     recomend,
+    inProgressRecipes,
+    doneRecipes,
+    allFavoriteRecipes,
+    listFav,
   };
 
   const functions = {
@@ -86,8 +99,16 @@ function Provider({ children }) {
     setSelectedOption,
     requestFoodAPI,
     requestDrinkAPI,
+    setMeals,
+    setDrinks,
+    setFoodCategories,
+    setDrinkCategories,
     setRecipeDetail,
     setRecomend,
+    SetInProgressRecipes,
+    SetDoneRecipes,
+    setAllFavoriteRecipes,
+    setListFav,
   };
 
   return (
