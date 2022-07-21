@@ -16,7 +16,7 @@ function Provider({ children }) {
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
-  const [listFav, setListFav] = useState([]);
+  // const [listFav, setListFav] = useState([]);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -82,7 +82,7 @@ function Provider({ children }) {
     inProgressRecipes,
     doneRecipes,
     allFavoriteRecipes,
-    listFav,
+    // listFav,
   };
 
   const functions = {
@@ -97,7 +97,7 @@ function Provider({ children }) {
     SetInProgressRecipes,
     SetDoneRecipes,
     setAllFavoriteRecipes,
-    setListFav,
+    // setListFav,
   };
 
   return (

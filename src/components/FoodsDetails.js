@@ -9,8 +9,9 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function FoodsDetails() {
-  const { states: { recipeDetail: { recipe }, recomend, listFav },
-    functions: { setListFav } } = useContext(context);
+  const localStorageFavs = localStorage.getItem('favoriteRecipes');
+
+  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
 
   // estados do COMPONENTE: botões
   const [btnText, setBtnText] = useState('Start Recipe');
@@ -18,10 +19,7 @@ function FoodsDetails() {
 
   const [isFavorited, setIsFavorited] = useState(false);
 
-  const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
-  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(unfavoriteRecipe);
-
-  const favoritedRecipe = <img alt="favorite this recipe" src={ blackHeartIcon } />;
+  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(whiteHeartIcon);
 
   const videoURL = recipe.strYoutube.split('=')[1];
 
@@ -40,7 +38,23 @@ function FoodsDetails() {
     };
 
     showButtonContinueRecipe();
-  }, [setBtnText, recipe.idMeal]);
+
+    const showButtonFavorite = () => {
+      if (localStorageFavs) {
+        const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const isFavorite = stage.some((el) => el.id !== recipe.idMeal);
+        if (isFavorite) {
+          setIsFavorited(true);
+          setBtnFavoriteRecipe(blackHeartIcon);
+        } else {
+          setIsFavorited(false);
+          setBtnFavoriteRecipe(whiteHeartIcon);
+        }
+      }
+    };
+
+    showButtonFavorite();
+  }, []);
 
   // função para retornar botão start recipe ou não
   const showButtonStartRecipe = () => {
@@ -59,16 +73,8 @@ function FoodsDetails() {
     setBtnShareTxt('Link copied!');
   };
 
-  // onClickBtnShare
-  const handleFavoriteBtn = () => {
-    if (!isFavorited) {
-      setBtnFavoriteRecipe(favoritedRecipe);
-      setIsFavorited(true);
-    } else {
-      setBtnFavoriteRecipe(unfavoriteRecipe);
-      setIsFavorited(false);
-    }
-
+  // adiciona no localStorage
+  const sendLocalStorage = () => {
     const newFavRecipe = {
       id: recipe.idMeal,
       type: 'food',
@@ -79,15 +85,35 @@ function FoodsDetails() {
       image: recipe.strMealThumb,
     };
 
-    const localStorageFavs = localStorage.getItem('favoriteRecipes');
-
     if (localStorageFavs) {
       const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      setListFav([stage, newFavRecipe]);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(listFav));
-      console.log(listFav);
+      stage.push(newFavRecipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(stage));
+      console.log(stage);
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    }
+    setIsFavorited(true);
+  };
+
+  // remove do localStorage
+  const removeLocalStorage = () => {
+    if (localStorageFavs) {
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const updatedFavList = stage.filter((el) => el.idMeal !== recipe.idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavList));
+      console.log(updatedFavList);
+      setIsFavorited(false);
+    }
+  };
+
+  const handleFavoriteBtn = () => {
+    if (!isFavorited) {
+      setBtnFavoriteRecipe(blackHeartIcon);
+      sendLocalStorage();
+    } else {
+      setBtnFavoriteRecipe(whiteHeartIcon);
+      removeLocalStorage();
     }
   };
 
@@ -151,14 +177,14 @@ function FoodsDetails() {
         {'  '}
         <img alt="share" src={ shareIcon } />
       </button>
-      <button
-        style={ { marginLeft: '20px' } }
-        type="button"
+      <input
+        // style={ { marginLeft: '20px' } }
+        type="image"
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
-      >
-        { btnFavoriteRecipe }
-      </button>
+        src={ btnFavoriteRecipe }
+        alt="favoritar"
+      />
     </div>
   );
 }
