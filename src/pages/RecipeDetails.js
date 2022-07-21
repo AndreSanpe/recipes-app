@@ -1,9 +1,7 @@
 import React, { useEffect, useContext } from 'react';
-// import { Link } from 'react-router-dom';
 import context from '../context/context';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-// import IngredientList from '../components/IngredientList';
 import DrinksDetails from '../components/DrinksDetails';
 import FoodsDetails from '../components/FoodsDetails';
 
@@ -59,159 +57,12 @@ function RecipeDetails() {
 
       return (
         <FoodsDetails />
-        // <div>
-        //   <img
-        //     className="w-75"
-        //     data-testid="recipe-photo"
-        //     alt={ recipe.strMeal }
-        //     src={ recipe.strMealThumb }
-        //   />
-        //   <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-        //   <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
-        //   <IngredientList />
-        //   <p data-testid="instructions">{recipe.strInstructions}</p>
-        //   <iframe
-        //     data-testid="video"
-        //     title={ recipe.strMeal }
-        //     width="420"
-        //     height="315"
-        //     src={ `https://www.youtube.com/embed/${videoURL}` }
-        //   />
-
-      //   <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
-      //     {
-      //       recomend.map((el, index) => (
-      //         <section data-testid={ `${index}-recomendation-card` } key={ el.index }>
-      //           <p data-testid={ `${index}-recomendation-title` }>
-      //             { el.strDrink }
-      //           </p>
-      //           <img
-      //             className="recomend-img"
-      //             src={ el.strDrinkThumb }
-      //             alt={ el.strDrink }
-      //           />
-      //         </section>
-      //       ))
-      //     }
-      //   </div>
-      //   {/* {
-      //     doneRecipes.filter((obj) => obj.idDrink === recipe.idDrink) ? '' : (
-      //       <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
-      //         <button
-      //           style={ { position: 'fixed', bottom: '0' } }
-      //           type="button"
-      //           data-testid="start-recipe-btn"
-      //         >
-      //           Start Recipe
-      //         </button>
-      //       </Link>
-
-      //     )
-      //   } */}
-      //   <Link to={ `/foods/${recipe.idMeal}/in-progress` }>
-      //     <button
-      //       style={ { position: 'fixed', bottom: '0' } }
-      //       type="button"
-      //       data-testid="start-recipe-btn"
-      //     >
-      //       Start Recipe
-      //     </button>
-      //   </Link>
-      //   <button
-      //     // style={ { position: 'fixed', bottom: '0' } }
-      //     style={ { marginLeft: '150px' } }
-      //     type="button"
-      //     data-testid="share-btn"
-      //   >
-      //     Share
-      //   </button>
-      //   <button
-      //     style={ { marginLeft: '50px' } }
-      //     type="button"
-      //     data-testid="favorite-btn"
-      //   >
-      //     favoritar
-      //   </button>
-      // </div>
       );
     }
 
     if (recipeDetail.type === 'drink') {
       return (
         <DrinksDetails />
-        // <div>
-        //   <img
-        //     className="w-75"
-        //     data-testid="recipe-photo"
-        //     alt={ recipe.strDrink }
-        //     src={ recipe.strDrinkThumb }
-        //   />
-        //   <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-        //   <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
-        //   <IngredientList />
-        //   <p data-testid="instructions">{recipe.strInstructions}</p>
-        //   <section>
-        //     <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
-        //       {
-        //         recomend.map((el, index) => (
-        //           <section key={ el.index }>
-        //             <figure>
-        //               <img
-        //                 className="recomend-img"
-        //                 src={ el.strMealThumb }
-        //                 alt={ el.strMeal }
-        //                 data-testid={ `${index}-recomendation-card` }
-        //               />
-        //               <figcaption
-        //                 data-testid={ `${index}-recomendation-title` }
-        //               >
-        //                 { el.strMeal }
-
-      //               </figcaption>
-      //             </figure>
-      //           </section>
-      //         ))
-      //       }
-      //     </div>
-      //   </section>
-      //   {/* {
-      //     doneRecipes.filter((obj) => obj.idDrink === recipe.idDrink) ? '' : (
-      //       <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
-      //         <button
-      //           style={ { position: 'fixed', bottom: '0' } }
-      //           type="button"
-      //           data-testid="start-recipe-btn"
-      //         >
-      //           Start Recipe
-      //         </button>
-      //       </Link>
-
-      //     )
-      //   } */}
-      //   <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
-      //     <button
-      //       style={ { position: 'fixed', bottom: '0' } }
-      //       type="button"
-      //       data-testid="start-recipe-btn"
-      //     >
-      //       Start Recipe
-      //     </button>
-      //   </Link>
-      //   <button
-      //     style={ { marginLeft: '150px' } }
-      //     type="button"
-      //     data-testid="share-btn"
-      //   >
-      //     Share
-      //   </button>
-      //   <button
-      //     style={ { marginLeft: '50px' } }
-      //     type="button"
-      //     data-testid="favorite-btn"
-      //   >
-      //     favoritar
-      //   </button>
-      // </div>
       );
     }
   };
