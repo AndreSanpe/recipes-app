@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
 import { fromFoodsName } from '../services';
 import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
-// import { Link } from 'react-router-dom';
 
 function Recipes() {
   const [loading, setLoading] = useState(true);
   const [toggle, setToggle] = useState(false);
+  const [nameButton, setNameButton] = useState('');
+  const [singleResult, setSingleResult] = useState(false);
   const {
     states: { meals, foodCategories },
     functions: { setMeals, setFoodCategories },
@@ -46,10 +47,15 @@ function Recipes() {
                   key={ index }
                   data-testid={ `${category.strCategory}-category-filter` }
                   onClick={ async (e) => {
+                    setNameButton(e.target.textContent);
                     setMeals(await handleFoodsFilter(e));
-                    if (!loading && toggle) {
+                    if (toggle && e.target.textContent === nameButton) {
                       setMeals(await fromFoodsName(''));
                     }
+                    if (meals.length === 1) {
+                      setSingleResult(true);
+                    }
+                    setSingleResult(false);
                     setToggle(!toggle);
                   } }
                 >
@@ -58,26 +64,35 @@ function Recipes() {
               )
             ))}
             {foodCategories
-        && <button type="button" data-testid="All-category-filter">All</button>}
+        && (
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ async () => setMeals(await fromFoodsName('')) }
+          >
+            All
+          </button>
+        )}
           </div>
         ) }
-
-        {meals && (meals.length === 1
+        {meals && ((meals.length === 1 || singleResult)
           ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
           : (
             (meals.map((el, index) => (
               index < MAX_CARDS
               && (
-                <div key={ el.idMeal } data-testid={ `${index}-recipe-card` }>
-                  <span data-testid={ `${index}-card-name` }>
-                    { el.strMeal }
-                  </span>
-                  <img
-                    src={ el.strMealThumb }
-                    alt={ el.strMeal }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </div>
+                <Link to={ `/foods/${meals[index].idMeal}` }>
+                  <div key={ el.idMeal } data-testid={ `${index}-recipe-card` }>
+                    <span data-testid={ `${index}-card-name` }>
+                      { el.strMeal }
+                    </span>
+                    <img
+                      src={ el.strMealThumb }
+                      alt={ el.strMeal }
+                      data-testid={ `${index}-card-img` }
+                    />
+                  </div>
+                </Link>
               )
             )))
           ))}
