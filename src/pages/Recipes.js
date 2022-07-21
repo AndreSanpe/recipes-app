@@ -28,7 +28,7 @@ function Recipes() {
       setLoading(false);
     }
     startMeal();
-  }, []);
+  }, [setFoodCategories, setMeals, setLoading]);
 
   return (
     <>
@@ -46,9 +46,10 @@ function Recipes() {
               // button que filtra por categorias
                 <button
                   type="button"
-                  key={ index }
+                  key={ `${index}${category.strCategory}` }
                   data-testid={ `${category.strCategory}-category-filter` }
                   onClick={ async (e) => {
+                    console.log('cliquei no botão');
                     setNameButton(e.target.textContent);
                     setMeals(await handleFoodsFilter(e));
                     if (toggle && e.target.textContent === nameButton) {
@@ -77,7 +78,7 @@ function Recipes() {
         )}
           </div>
         ) }
-        {meals && ((meals.length === 1 || singleResult)
+        {meals && ((meals.length === 1 && singleResult)
           ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
           : (
             (meals.map((el, index) => (

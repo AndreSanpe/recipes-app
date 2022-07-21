@@ -42,10 +42,10 @@ function RecipeInProgress() {
 
             </button>
             <p data-testid="recipe-category">{ el.strCategory }</p>
-            <IngredientInput
+            {/* <IngredientInput
               meals={ meals }
               setIsFinishButtonDisabled={ setIsFinishButtonDisabled }
-            />
+            /> */}
             <p data-testid="instructions">{ el.strInstructions }</p>
             <button
               type="button"
