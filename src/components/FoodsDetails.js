@@ -9,11 +9,14 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function FoodsDetails() {
-  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
+  const { states: { recipeDetail: { recipe }, recomend, listFav },
+    functions: { setListFav } } = useContext(context);
 
   // estados do COMPONENTE: botões
   const [btnText, setBtnText] = useState('Start Recipe');
   const [btnShareTxt, setBtnShareTxt] = useState('Share');
+
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
   const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(unfavoriteRecipe);
@@ -58,7 +61,13 @@ function FoodsDetails() {
 
   // onClickBtnShare
   const handleFavoriteBtn = () => {
-    setBtnFavoriteRecipe(favoritedRecipe);
+    if (!isFavorited) {
+      setBtnFavoriteRecipe(favoritedRecipe);
+      setIsFavorited(true);
+    } else {
+      setBtnFavoriteRecipe(unfavoriteRecipe);
+      setIsFavorited(false);
+    }
 
     const newFavRecipe = {
       id: recipe.idMeal,
@@ -73,12 +82,13 @@ function FoodsDetails() {
     const localStorageFavs = localStorage.getItem('favoriteRecipes');
 
     if (localStorageFavs) {
-      localStorageFavs.push(newFavRecipe);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageFavs));
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setListFav([stage, newFavRecipe]);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(listFav));
+      console.log(listFav);
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
     }
-    // localStorageFavs[0].push(obj);
   };
 
   return (

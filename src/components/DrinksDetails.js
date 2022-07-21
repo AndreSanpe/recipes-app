@@ -9,16 +9,19 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function DrinksDetails() {
-  const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
+  // localStorage.setItem('favoriteRecipes', []);
+
+  const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
+  const favoritedRecipe = <img alt="favorite this recipe" src={ blackHeartIcon } />;
+
+  const { states: { recipeDetail: { recipe }, recomend, listFav },
+    functions: { setListFav } } = useContext(context);
 
   // estados do COMPONENTE: botões
   const [btnText, setBtnText] = useState('Start Recipe');
   const [btnShareTxt, setBtnShareTxt] = useState('Share');
-
-  const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
+  const [isFavorited, setIsFavorited] = useState(false);
   const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(unfavoriteRecipe);
-
-  const favoritedRecipe = <img alt="favorite this recipe" src={ blackHeartIcon } />;
 
   useEffect(() => {
     const showButtonContinueRecipe = () => {
@@ -45,7 +48,13 @@ function DrinksDetails() {
 
   // onClickBtnShare
   const handleFavoriteBtn = () => {
-    setBtnFavoriteRecipe(favoritedRecipe);
+    if (!isFavorited) {
+      setBtnFavoriteRecipe(favoritedRecipe);
+      setIsFavorited(true);
+    } else {
+      setBtnFavoriteRecipe(unfavoriteRecipe);
+      setIsFavorited(false);
+    }
 
     const newFavRecipe = {
       id: recipe.idDrink,
@@ -57,15 +66,17 @@ function DrinksDetails() {
       image: recipe.strDrinkThumb,
     };
 
+    // setListFav((prev) => [...prev, newFavRecipe]);
     const localStorageFavs = localStorage.getItem('favoriteRecipes');
 
     if (localStorageFavs) {
-      localStorageFavs.push(newFavRecipe);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageFavs));
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setListFav([stage, newFavRecipe]);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(listFav));
+      console.log(listFav);
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
     }
-    // localStorageFavs[0].push(obj);
   };
 
   // função para retornar botão start recipe ou não
