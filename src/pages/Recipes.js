@@ -12,7 +12,7 @@ function Recipes() {
 
   const MAX_CARDS = 12;
 
-  console.log(meals);
+  // console.log(meals);
 
   return (
     <>
