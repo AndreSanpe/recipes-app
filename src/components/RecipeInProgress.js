@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import IngredientInput from './IngredientInput';
+// import IngredientInput from './IngredientInput';
 import meals from './MockRecepieInProgress';
 
 function RecipeInProgress() {
-  const [isFinishButtonDisabled, setIsFinishButtonDisabled] = useState(true);
+  const [isFinishButtonDisabled] = useState(true); // setIsFinishButtonDisabled
   const [copyMessage, setCopyMessage] = useState(false);
   const history = useHistory();
 
@@ -42,10 +42,10 @@ function RecipeInProgress() {
 
             </button>
             <p data-testid="recipe-category">{ el.strCategory }</p>
-            <IngredientInput
+            {/* <IngredientInput
               meals={ meals }
               setIsFinishButtonDisabled={ setIsFinishButtonDisabled }
-            />
+            /> */}
             <p data-testid="instructions">{ el.strInstructions }</p>
             <button
               type="button"

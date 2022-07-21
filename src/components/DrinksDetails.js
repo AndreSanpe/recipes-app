@@ -44,7 +44,6 @@ function DrinksDetails() {
           setBtnFavoriteRecipe(blackHeartIcon);
         } else {
           setIsFavorited(false);
-          setBtnFavoriteRecipe(whiteHeartIcon);
         }
       }
     };
@@ -79,6 +78,7 @@ function DrinksDetails() {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
     }
     setIsFavorited(true);
+    setBtnFavoriteRecipe(blackHeartIcon);
   };
 
   // remove do localStorage
@@ -89,17 +89,18 @@ function DrinksDetails() {
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavList));
       console.log(updatedFavList);
       setIsFavorited(false);
+      setBtnFavoriteRecipe(whiteHeartIcon);
     }
   };
 
   // onClickBtbFavorite
   const handleFavoriteBtn = () => {
     if (!isFavorited) {
-      setBtnFavoriteRecipe(blackHeartIcon);
       sendLocalStorage();
+      // setBtnFavoriteRecipe(blackHeartIcon);
     } else {
-      setBtnFavoriteRecipe(whiteHeartIcon);
       removeLocalStorage();
+      // setBtnFavoriteRecipe(whiteHeartIcon);
     }
   };
 

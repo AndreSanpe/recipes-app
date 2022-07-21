@@ -40,15 +40,15 @@ function FoodsDetails() {
     showButtonContinueRecipe();
 
     const showButtonFavorite = () => {
-      if (localStorageFavs) {
-        const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (stage) {
         const isFavorite = stage.some((el) => el.id !== recipe.idMeal);
         if (isFavorite) {
+          console.log(isFavorite);
           setIsFavorited(true);
           setBtnFavoriteRecipe(blackHeartIcon);
         } else {
           setIsFavorited(false);
-          setBtnFavoriteRecipe(whiteHeartIcon);
         }
       }
     };
@@ -94,26 +94,28 @@ function FoodsDetails() {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
     }
     setIsFavorited(true);
+    setBtnFavoriteRecipe(blackHeartIcon);
   };
 
   // remove do localStorage
   const removeLocalStorage = () => {
     if (localStorageFavs) {
       const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const updatedFavList = stage.filter((el) => el.idMeal !== recipe.idMeal);
+      const updatedFavList = stage.filter((el) => el.id !== recipe.idMeal);
       localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavList));
       console.log(updatedFavList);
       setIsFavorited(false);
+      setBtnFavoriteRecipe(whiteHeartIcon);
     }
   };
 
   const handleFavoriteBtn = () => {
     if (!isFavorited) {
-      setBtnFavoriteRecipe(blackHeartIcon);
       sendLocalStorage();
+      // setBtnFavoriteRecipe(blackHeartIcon);
     } else {
-      setBtnFavoriteRecipe(whiteHeartIcon);
       removeLocalStorage();
+      // setBtnFavoriteRecipe(whiteHeartIcon);
     }
   };
 
