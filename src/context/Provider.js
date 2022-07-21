@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import context from './context';
 import * as request from '../services';
+import fetchFoodCategories, { fetchDrinkCategories } from '../services/fetchCategories';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -11,6 +12,8 @@ function Provider({ children }) {
   const [selectedOption, setSelectedOption] = useState('');
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+  const [foodCategories, setFoodCategories] = useState([]);
   const [recipeDetail, setRecipeDetail] = useState({ recipe: [], type: '' });
   const [recomend, setRecomend] = useState([]);
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
@@ -40,6 +43,7 @@ function Provider({ children }) {
   }, [email, password]);
 
   const requestFoodAPI = async () => {
+    setFoodCategories(await fetchFoodCategories());
     switch (selectedOption) {
     case 'ingredient':
       return setMeals(await request.fromFoodIngredient(input));
@@ -55,6 +59,7 @@ function Provider({ children }) {
   };
 
   const requestDrinkAPI = async () => {
+    setDrinkCategories(await fetchDrinkCategories());
     switch (selectedOption) {
     case 'ingredient':
       return setDrinks(await request.fromDrinkIngredient(input));
@@ -77,6 +82,8 @@ function Provider({ children }) {
     selectedOption,
     meals,
     drinks,
+    drinkCategories,
+    foodCategories,
     recipeDetail,
     recomend,
     inProgressRecipes,
@@ -92,6 +99,10 @@ function Provider({ children }) {
     setSelectedOption,
     requestFoodAPI,
     requestDrinkAPI,
+    setMeals,
+    setDrinks,
+    setFoodCategories,
+    setDrinkCategories,
     setRecipeDetail,
     setRecomend,
     SetInProgressRecipes,
