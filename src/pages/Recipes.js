@@ -3,6 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
+import RecipeInProgress from '../components/RecipeInProgress';
+// import { Link } from 'react-router-dom';
 import { fromFoodsName } from '../services';
 import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
 
@@ -97,6 +99,7 @@ function Recipes() {
             )))
           ))}
       </main>
+      <RecipeInProgress />
       <Footer />
     </>
   );
