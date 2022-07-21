@@ -16,6 +16,7 @@ function Provider({ children }) {
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [btnText, setBtnText] = useState('Start Recipe');
+  const [btnShareTxt, setBtnShareTxt] = useState('Share');
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -81,6 +82,7 @@ function Provider({ children }) {
     inProgressRecipes,
     doneRecipes,
     btnText,
+    btnShareTxt,
   };
 
   const functions = {
@@ -95,6 +97,7 @@ function Provider({ children }) {
     SetInProgressRecipes,
     SetDoneRecipes,
     setBtnText,
+    setBtnShareTxt,
   };
 
   return (
