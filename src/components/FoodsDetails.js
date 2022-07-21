@@ -59,6 +59,26 @@ function FoodsDetails() {
   // onClickBtnShare
   const handleFavoriteBtn = () => {
     setBtnFavoriteRecipe(favoritedRecipe);
+
+    const newFavRecipe = {
+      id: recipe.idMeal,
+      type: 'food',
+      nationality: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    };
+
+    const localStorageFavs = localStorage.getItem('favoriteRecipes');
+
+    if (localStorageFavs) {
+      localStorageFavs.push(newFavRecipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageFavs));
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    }
+    // localStorageFavs[0].push(obj);
   };
 
   return (

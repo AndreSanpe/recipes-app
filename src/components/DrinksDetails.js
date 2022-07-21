@@ -46,6 +46,26 @@ function DrinksDetails() {
   // onClickBtnShare
   const handleFavoriteBtn = () => {
     setBtnFavoriteRecipe(favoritedRecipe);
+
+    const newFavRecipe = {
+      id: recipe.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
+
+    const localStorageFavs = localStorage.getItem('favoriteRecipes');
+
+    if (localStorageFavs) {
+      localStorageFavs.push(newFavRecipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageFavs));
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    }
+    // localStorageFavs[0].push(obj);
   };
 
   // função para retornar botão start recipe ou não
