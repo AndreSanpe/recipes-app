@@ -58,19 +58,18 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
   // }, [inProgressRecipes]);
 
   const toggleButton = () => {
-    ingredientList.forEach(el => {
-      
-    const numOfChecked = Object.values(validateBtn)
-      .filter((el) => ((el === true)));
-    const nameIng = Object.keys(inProgressRecipes)
-      .filter((el) => (el.includes(ingredientList)));
+    ingredientList.forEach((el) => {
+      const numOfChecked = Object.values(validateBtn)
+        .filter((it) => ((it === true)));
+      const nameIng = Object.keys(inProgressRecipes)
+        .filter((element) => (element.includes(ingredientList)));
       console.log(nameIng);
       console.log(el[1]);
-    if (ingredientList.length === numOfChecked.length
+      if (ingredientList.length === numOfChecked.length
       && nameIng.includes) {
-      setBtnDisabled(false);
-    } else { setBtnDisabled(true); }
-  });
+        setBtnDisabled(false);
+      } else { setBtnDisabled(true); }
+    });
   };
 
   return (
