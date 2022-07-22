@@ -24,7 +24,6 @@ function RecipeDetails() {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`)
           .then((resp) => resp.json());
         setRecipeDetail({ recipe: response.drinks[0], type: 'drink' });
-        // console.log(response.drinks);
       }
     };
     getDetailedRecipe(id);
@@ -51,10 +50,8 @@ function RecipeDetails() {
   }, [setRecomend, setRecipeDetail]);
 
   // monta info das receitas
-  const renderRecipe = () => { // passar recipe como prop
+  const renderRecipe = () => {
     if (recipeDetail.type === 'food') {
-      // const videoURL = recipe.strYoutube.split('=')[1];
-
       return (
         <FoodsDetails />
       );

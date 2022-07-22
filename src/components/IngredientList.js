@@ -14,12 +14,12 @@ function IngredientList() {
     <ul>
       {
         ingredientList.map((ing, index) => (
-          <p
+          <li
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            {` 👉 ${ing[1]} - ${mesurementList[index][1]}`}
-          </p>
+            {`  ${ing[1]} - ${mesurementList[index][1]}`}
+          </li>
         ))
 
       }
