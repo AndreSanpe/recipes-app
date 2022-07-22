@@ -4,6 +4,7 @@ import App from '../App';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
+import Recipes from '../pages/Recipes';
 
 const renderWithRouter = (component) => {
   const history = createMemoryHistory();
@@ -15,7 +16,8 @@ const renderWithRouter = (component) => {
 describe('Testa o componente SearchBar', () => {
   it('Verifica se a barra de pesquisa e os 3 filtros existem e estão funcionando',
     () => {
-      renderWithRouter(<App />);
+      const { history } = renderWithRouter(<Recipes />)
+      expect(history.location.pathname).toBe('/foods');
 
       const FOOD_SEARCH = 'chicken';
 

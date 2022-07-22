@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import context from './context';
-import * as request from '../services';
+import * as request from '../services/fetchSearchBar';
 import fetchFoodCategories,
 { fetchDrinkCategories,
   handleDrinksFilter, handleFoodsFilter } from '../services/fetchCategories';
