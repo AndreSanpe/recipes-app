@@ -151,7 +151,6 @@ function Provider({ children }) {
     SetInProgressRecipes,
     SetDoneRecipes,
     setAllFavoriteRecipes,
-    setListFav,
     filterBtnFood,
     allBtnFilter,
     filterBtnDrink,

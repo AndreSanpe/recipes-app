@@ -57,6 +57,7 @@ function Drinks() {
             )}
         </div>
 
+        { console.log(drinks) }
         {
           drinks && (drinks.map((el, index) => (
             index < MAX_CARDS
