@@ -9,7 +9,6 @@ const copy = require('clipboard-copy');
 function CardFavorite({ favorites, chosenFilter }) {
   const [isCopied, setIsCopied] = useState(false);
   const [favoriteList, setFavoriteList] = useState([]);
-  const [localStorageUpdate, setLocalStorageUpdate] = useState(false);
 
   useEffect(() => {
     function getListFiltered() {
@@ -33,6 +32,12 @@ function CardFavorite({ favorites, chosenFilter }) {
     copy(`http://localhost:3000/${type}s/${id}`);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), CINCO_SEGUNDOS);
+  }
+
+  function handleUnfavorite(id) {
+    const newList = favoriteList.filter((recipe) => recipe.id !== id);
+    setFavoriteList(newList);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
   }
 
   return (
@@ -91,6 +96,7 @@ function CardFavorite({ favorites, chosenFilter }) {
                 src={ blackHeartIcon }
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 style={ { margin: '10px' } }
+                onClick={ () => handleUnfavorite(item.id) }
               >
                 <img src={ blackHeartIcon } alt="favorite icon" />
               </button>

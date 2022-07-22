@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import CardFavorite from '../components/CardFavorite';
 
-const FILTRO_INICIAL = 'all';
-
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
-  const [theFilter, setTheFilter] = useState('FILTRO_INICIAL');
+  const [theFilter, setTheFilter] = useState('');
 
   useEffect(() => {
     function getFavorites() {
