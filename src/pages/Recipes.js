@@ -12,7 +12,6 @@ function Recipes() {
   const [toggle, setToggle] = useState(false);
   const [nameButton, setNameButton] = useState('');
   const [singleResult, setSingleResult] = useState(false);
-  console.log(context);
   const {
     states: { meals, foodCategories },
     functions: { setMeals, setFoodCategories },

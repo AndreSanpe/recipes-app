@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-function IngredientInput({ meals, setBtnDisabled }) {
+function IngredientInput({ srcRecipe, setBtnDisabled }) {
   const [inProgressRecipes, setInProgressRecipes] = useState({});
+  const [validateBtn, setValidateBtn] = useState([]);
 
-  const ingredientList = Object.entries(meals[0])
+  const ingredientList = Object.entries(srcRecipe[0])
     .filter((key) => key[0].includes('strIngredient'))
     .filter((ing) => ing[1] !== null && ing[1] !== '');
 
@@ -12,6 +13,12 @@ function IngredientInput({ meals, setBtnDisabled }) {
     const { name } = target;
     const value = target.checked;
     setInProgressRecipes((prev) => (
+      {
+        ...prev,
+        [name]: value,
+      }
+    ));
+    setValidateBtn((prev) => (
       {
         ...prev,
         [name]: value,
@@ -30,37 +37,65 @@ function IngredientInput({ meals, setBtnDisabled }) {
         .stringify({ ...inProgressRecipes }));
     };
     sendDataToLocalStorage();
+    console.log(validateBtn);
   }, [inProgressRecipes]);
 
-  useEffect(() => {
-    const numOfChecked = Object.values(inProgressRecipes)
+  // console.log(b);
+
+  // console.log(inProgressRecipes);
+  // useEffect(() => {
+  //   ingredientList.forEach((el) => {
+  //     const isChecked = inProgressRecipes[`${el[1]}`] || false;
+  //     const a = isChecked === true;
+  //     console.log(a.length);
+  //     return isChecked;
+  //   });
+  //   const numOfChecked = Object.values(validateBtn)
+  //     .filter((el) => ((el === true)));
+  //   if (ingredientList.length === numOfChecked.length) {
+  //     setBtnDisabled(false);
+  //   } else { setBtnDisabled(true); }
+  // }, [inProgressRecipes]);
+
+  const toggleButton = () => {
+    ingredientList.forEach(el => {
+      
+    const numOfChecked = Object.values(validateBtn)
       .filter((el) => ((el === true)));
-    if (ingredientList.length === numOfChecked.length) {
+    const nameIng = Object.keys(inProgressRecipes)
+      .filter((el) => (el.includes(ingredientList)));
+      console.log(nameIng);
+      console.log(el[1]);
+    if (ingredientList.length === numOfChecked.length
+      && nameIng.includes) {
       setBtnDisabled(false);
     } else { setBtnDisabled(true); }
-  }, [inProgressRecipes]);
+  });
+  };
 
   return (
     <div>
       {
         ingredientList.map((ing, index) => {
-          const isChecked = inProgressRecipes[`${index}-${ing[1]}`] || false;
+          const isChecked = inProgressRecipes[`${ing[1]}`] || false;
+          // setBtnDisabled(!isChecked);
+          toggleButton();
           return (
             <label
               style={ { display: 'block' } }
               key={ index }
               htmlFor={ `${index}-ingredient-step` }
+              data-testid={ `${index}-ingredient-step` }
             >
               <input
-                name={ `${index}-${ing[1]}` }
+                name={ `${ing[1]}` }
                 id={ `${index}-ingredient-step` }
-                data-testid={ `${index}-ingredient-step` }
                 type="checkbox"
                 checked={ isChecked }
                 onChange={ ({ target }) => handleChange(target) }
               />
               {
-                inProgressRecipes[`${index}-${ing[1]}`]
+                inProgressRecipes[`${ing[1]}`]
                   ? <strike>{ ing[1] }</strike>
                   : <span>{ ing[1] }</span>
               }
@@ -73,7 +108,7 @@ function IngredientInput({ meals, setBtnDisabled }) {
 }
 
 IngredientInput.propTypes = {
-  meals: PropTypes.arrayOf(
+  srcRecipe: PropTypes.arrayOf(
     PropTypes.shape({}).isRequired,
   ).isRequired,
   setBtnDisabled: PropTypes.func.isRequired,
