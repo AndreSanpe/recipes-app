@@ -37,7 +37,7 @@ function CardFavorite({ favorites, chosenFilter }) {
   function handleUnfavorite(id) {
     const newList = favoriteList.filter((recipe) => recipe.id !== id);
     setFavoriteList(newList);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteList));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
   }
 
   return (
