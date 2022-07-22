@@ -42,7 +42,7 @@ function CardFavorite({ favorites, chosenFilter }) {
 
   return (
     <div>
-      {favoriteList.map((item, index) => (
+      {favoriteList && favoriteList.map((item, index) => (
         <div
           key={ item.id }
           style={ {
