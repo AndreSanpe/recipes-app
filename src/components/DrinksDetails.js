@@ -9,16 +9,15 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function DrinksDetails() {
+  const localStorageFavs = localStorage.getItem('favoriteRecipes');
+
   const { states: { recipeDetail: { recipe }, recomend } } = useContext(context);
 
   // estados do COMPONENTE: botões
   const [btnText, setBtnText] = useState('Start Recipe');
   const [btnShareTxt, setBtnShareTxt] = useState('Share');
-
-  const unfavoriteRecipe = <img alt="favorite this recipe" src={ whiteHeartIcon } />;
-  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(unfavoriteRecipe);
-
-  const favoritedRecipe = <img alt="favorite this recipe" src={ blackHeartIcon } />;
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(whiteHeartIcon);
 
   useEffect(() => {
     const showButtonContinueRecipe = () => {
@@ -26,16 +25,32 @@ function DrinksDetails() {
       if (inProgress) {
         const inProgressObj = JSON.parse(localStorage.getItem('inProgressRecipes'));
         if (inProgressObj.cocktails) {
-          const inProgCocktails = inProgressObj.cocktails;
-          const arrayOfInProgC = Object.keys(inProgCocktails);
-          const isInProg = arrayOfInProgC.some((inProgC) => inProgC === recipe.idDrink);
+          const isInProg = Object.keys(inProgressObj.cocktails)
+            .some((inProgC) => inProgC === recipe.idDrink);
           if (isInProg) setBtnText('Continue Recipe');
         }
       }
     };
 
     showButtonContinueRecipe();
-  }, [setBtnText, recipe.idDrink]);
+
+    const showButtonFavorite = () => {
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (stage) {
+        const isFavorite = stage.some((el) => el.id === recipe.idDrink);
+        if (isFavorite) {
+          console.log(isFavorite);
+          setIsFavorited(true);
+          setBtnFavoriteRecipe(blackHeartIcon);
+        } else {
+          setIsFavorited(false);
+          // setBtnFavoriteRecipe(blackHeartIcon);
+        }
+      }
+    };
+
+    showButtonFavorite();
+  }, []);
 
   // onClickBtnShare
   const handleShareBtn = () => {
@@ -43,10 +58,8 @@ function DrinksDetails() {
     setBtnShareTxt('Link copied!');
   };
 
-  // onClickBtnShare
-  const handleFavoriteBtn = () => {
-    setBtnFavoriteRecipe(favoritedRecipe);
-
+  // adiciona no localStorage
+  const sendLocalStorage = () => {
     const newFavRecipe = {
       id: recipe.idDrink,
       type: 'drink',
@@ -57,15 +70,39 @@ function DrinksDetails() {
       image: recipe.strDrinkThumb,
     };
 
-    const localStorageFavs = localStorage.getItem('favoriteRecipes');
-
     if (localStorageFavs) {
-      localStorageFavs.push(newFavRecipe);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(localStorageFavs));
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      stage.push(newFavRecipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(stage));
+      console.log(stage);
     } else {
       localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
     }
-    // localStorageFavs[0].push(obj);
+    setIsFavorited(true);
+    setBtnFavoriteRecipe(blackHeartIcon);
+  };
+
+  // remove do localStorage
+  const removeLocalStorage = () => {
+    if (localStorageFavs) {
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const updatedFavList = stage.filter((el) => el.id !== recipe.idDrink);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavList));
+      console.log(updatedFavList);
+      setIsFavorited(false);
+      setBtnFavoriteRecipe(whiteHeartIcon);
+    }
+  };
+
+  // onClickBtbFavorite
+  const handleFavoriteBtn = () => {
+    if (!isFavorited) {
+      sendLocalStorage();
+      // setBtnFavoriteRecipe(blackHeartIcon);
+    } else {
+      removeLocalStorage();
+      // setBtnFavoriteRecipe(whiteHeartIcon);
+    }
   };
 
   // função para retornar botão start recipe ou não
@@ -135,14 +172,14 @@ function DrinksDetails() {
         {'  '}
         <img alt="share" src={ shareIcon } />
       </button>
-      <button
+      <input
         style={ { marginLeft: '20px' } }
-        type="button"
+        type="image"
         data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
-      >
-        { btnFavoriteRecipe }
-      </button>
+        src={ btnFavoriteRecipe }
+        alt="favoritar"
+      />
     </div>
   );
 }
