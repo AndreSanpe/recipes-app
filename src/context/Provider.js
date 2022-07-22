@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import context from './context';
 import * as request from '../services';
-import fetchFoodCategories, { fetchDrinkCategories } from '../services/fetchCategories';
+import fetchFoodCategories,
+{ fetchDrinkCategories,
+  handleDrinksFilter, handleFoodsFilter } from '../services/fetchCategories';
 
 function Provider({ children }) {
   const [email, setEmail] = useState('');
@@ -21,6 +23,8 @@ function Provider({ children }) {
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
   const [listFav, setListFav] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const [nameButton, setNameButton] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -52,13 +56,13 @@ function Provider({ children }) {
       if (meals.length === 1) {
         history.push(`/foods/${meals[0].idMeal}`);
       }
-      return;
+      return setMeals(await request.fromFoodIngredient(input));
     case 'name':
       setMeals(await request.fromFoodsName(input));
       if (meals.length === 1) {
         history.push(`/foods/${meals[0].idMeal}`);
       }
-      return;
+      return setMeals(await request.fromFoodsName(input));
     case 'first-letter':
       return input.length === 1
         ? setMeals(await request.fromFoodsFirstLetter(input))
@@ -72,8 +76,17 @@ function Provider({ children }) {
     setDrinkCategories(await fetchDrinkCategories());
     switch (selectedOption) {
     case 'ingredient':
-      return setDrinks(await request.fromDrinkIngredient(input));
+      setDrinks(await request.fromDrinkIngredient(input));
+      if (drinks.length === 1) {
+        history.push(`/drinks/${drinks[0].idDrink}`);
+      }
+      return;
     case 'name':
+      setDrinks(await request.fromDrinksName(input));
+      if (drinks.length === 1) {
+        console.log('dentro do if');
+        history.push(`/drinks/${drinks[0].idDrink}`);
+      }
       return setDrinks(await request.fromDrinksName(input));
     case 'first-letter':
       return input.length === 1
@@ -83,6 +96,28 @@ function Provider({ children }) {
       return console.log('xablau');
     }
   };
+
+  const filterBtnFood = async (e) => {
+    setNameButton(e.target.textContent);
+    setMeals(await handleFoodsFilter(e));
+    if (toggle && e.target.textContent === nameButton) {
+      setMeals(await request.fromFoodsName(''));
+    }
+    setToggle(!toggle);
+  };
+
+  const allBtnFilter = async () => setMeals(await request.fromFoodsName(''));
+
+  const filterBtnDrink = async (e) => {
+    setNameButton(e.target.textContent);
+    setDrinks(await handleDrinksFilter(e));
+    if (toggle && e.target.textContent === nameButton) {
+      setDrinks(await request.fromDrinksName(''));
+    }
+    setToggle(!toggle);
+  };
+
+  const allBtnFilterDrinks = async () => setDrinks(await request.fromDrinksName(''));
 
   const states = {
     email,
@@ -119,6 +154,10 @@ function Provider({ children }) {
     SetDoneRecipes,
     setAllFavoriteRecipes,
     setListFav,
+    filterBtnFood,
+    allBtnFilter,
+    filterBtnDrink,
+    allBtnFilterDrinks,
   };
 
   return (

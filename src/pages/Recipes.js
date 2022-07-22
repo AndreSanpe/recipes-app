@@ -1,20 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
-import RecipeInProgress from '../components/RecipeInProgress';
-// import { Link } from 'react-router-dom';
 import { fromFoodsName } from '../services';
-import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
+import fetchFoodCategories from '../services/fetchCategories';
 
 function Recipes() {
-  const [toggle, setToggle] = useState(false);
-  const [nameButton, setNameButton] = useState('');
-  const [singleResult, setSingleResult] = useState(false);
   const {
     states: { meals, foodCategories },
-    functions: { setMeals, setFoodCategories },
+    functions: { setMeals, setFoodCategories, filterBtnFood, allBtnFilter },
   } = useContext(context);
 
   const MAX_CARDS = 12;
@@ -41,19 +36,7 @@ function Recipes() {
                 type="button"
                 key={ `${index}${category.strCategory}` }
                 data-testid={ `${category.strCategory}-category-filter` }
-                onClick={ async (e) => {
-                  console.log('cliquei no botão');
-                  setNameButton(e.target.textContent);
-                  setMeals(await handleFoodsFilter(e));
-                  if (toggle && e.target.textContent === nameButton) {
-                    setMeals(await fromFoodsName(''));
-                  }
-                  if (meals.length === 1) {
-                    setSingleResult(true);
-                  }
-                  setSingleResult(false);
-                  setToggle(!toggle);
-                } }
+                onClick={ filterBtnFood }
               >
                 {category.strCategory}
               </button>
@@ -64,16 +47,14 @@ function Recipes() {
               <button
                 type="button"
                 data-testid="All-category-filter"
-                onClick={ async () => setMeals(await fromFoodsName('')) }
+                onClick={ allBtnFilter }
               >
                 All
               </button>
             )}
         </div>
-        {meals && ((meals.length === 1 && singleResult)
-          ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
-          : (
-            (meals.map((el, index) => (
+        {meals
+            && (meals.map((el, index) => (
               index < MAX_CARDS
               && (
                 <Link to={ `/foods/${meals[index].idMeal}` }>
@@ -89,10 +70,8 @@ function Recipes() {
                   </div>
                 </Link>
               )
-            )))
-          ))}
+            )))}
       </main>
-      <RecipeInProgress />
       <Footer />
     </>
   );
