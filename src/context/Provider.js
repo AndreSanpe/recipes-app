@@ -22,7 +22,6 @@ function Provider({ children }) {
   const [inProgressRecipes, SetInProgressRecipes] = useState([]);
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
-  const [listFav, setListFav] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [nameButton, setNameButton] = useState('');
   const history = useHistory();
@@ -134,7 +133,6 @@ function Provider({ children }) {
     inProgressRecipes,
     doneRecipes,
     allFavoriteRecipes,
-    listFav,
   };
 
   const functions = {
