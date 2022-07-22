@@ -7,10 +7,6 @@ import { fromDrinksName } from '../services/fetchSearchBar';
 import { fetchDrinkCategories } from '../services/fetchCategories';
 
 function Drinks() {
-  // const [toggle, setToggle] = useState(false);
-  // const [nameButton, setNameButton] = useState('');
-  // const [singleResult, setSingleResult] = useState(false);
-
   const {
     states: { drinks, drinkCategories },
     functions: { setDrinks, setDrinkCategories, filterBtnDrink, allBtnFilterDrinks },
