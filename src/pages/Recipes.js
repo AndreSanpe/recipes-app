@@ -3,9 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import context from '../context/context';
 import Footer from '../components/Footer';
-import RecipeInProgress from '../components/RecipeInProgress';
 // import { Link } from 'react-router-dom';
-import { fromFoodsName } from '../services';
+import { fromFoodsName } from '../services/fetchSearchBar';
 import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
 
 function Recipes() {
@@ -13,6 +12,7 @@ function Recipes() {
   const [toggle, setToggle] = useState(false);
   const [nameButton, setNameButton] = useState('');
   const [singleResult, setSingleResult] = useState(false);
+  console.log(context);
   const {
     states: { meals, foodCategories },
     functions: { setMeals, setFoodCategories },
@@ -99,7 +99,6 @@ function Recipes() {
             )))
           ))}
       </main>
-      <RecipeInProgress />
       <Footer />
     </>
   );

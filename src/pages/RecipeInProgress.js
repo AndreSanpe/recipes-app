@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import IngredientInput from './IngredientInput';
-import meals from './MockRecepieInProgress';
+import context from '../context/context';
+import IngredientInput from '../components/IngredientInput';
+import meals from '../tests/Mocks/MockFetchLasagne';
 
 function RecipeInProgress() {
-  const [isFinishButtonDisabled, setIsFinishButtonDisabled] = useState(true);
+  const { states: { recipeDetail } } = useContext(context);
+  console.log(recipeDetail);
+
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const [copyMessage, setCopyMessage] = useState(false);
   const history = useHistory();
 
@@ -44,13 +48,13 @@ function RecipeInProgress() {
             <p data-testid="recipe-category">{ el.strCategory }</p>
             <IngredientInput
               meals={ meals }
-              setIsFinishButtonDisabled={ setIsFinishButtonDisabled }
+              setBtnDisabled={ setBtnDisabled }
             />
             <p data-testid="instructions">{ el.strInstructions }</p>
             <button
               type="button"
               data-testid="finish-recipe-btn"
-              disabled={ isFinishButtonDisabled }
+              disabled={ btnDisabled }
               onClick={ () => history.push('/done-recipes') }
             >
               Finalizar Receita

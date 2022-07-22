@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import context from './context';
-import * as request from '../services';
+import * as request from '../services/fetchSearchBar';
 import fetchFoodCategories, { fetchDrinkCategories } from '../services/fetchCategories';
 
 function Provider({ children }) {

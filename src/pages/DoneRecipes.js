@@ -154,8 +154,8 @@ function DoneRecipes() {
             .map((el, index) => (
 
             ))} */}
-        </>)}
-
+        </>
+      )}
     </div>
   );
 }
