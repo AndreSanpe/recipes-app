@@ -87,13 +87,13 @@ const cardImages = await screen.findAllByAltText('receipt-card')
 
 userEvent.click(cardImages[0])
 
-expect(history.location.pathname).toBe('/foods/:52771')
+expect(history.location.pathname).toBe('/foods/52771')
 
 
 history.push('/done-recipes')
 
 userEvent.click(cardImages[1])
-expect(history.location.pathname).toBe('/drinks/:178319')
+expect(history.location.pathname).toBe('/drinks/178319')
 
 history.push('/done-recipes')
 
