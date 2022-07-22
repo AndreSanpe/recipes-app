@@ -9,7 +9,6 @@ import { fromFoodsName } from '../services';
 import fetchFoodCategories, { handleFoodsFilter } from '../services/fetchCategories';
 
 function Recipes() {
-  const [loading, setLoading] = useState(true);
   const [toggle, setToggle] = useState(false);
   const [nameButton, setNameButton] = useState('');
   const [singleResult, setSingleResult] = useState(false);
@@ -25,59 +24,52 @@ function Recipes() {
     async function startMeal() {
       setMeals(await fromFoodsName(''));
       setFoodCategories(await fetchFoodCategories());
-      setLoading(false);
     }
     startMeal();
-  }, [setFoodCategories, setMeals, setLoading]);
+  }, [setFoodCategories, setMeals]);
 
   return (
     <>
       <Header />
       <h1>página principal de receitas</h1>
       <main>
-        {loading ? (
-          <div>
-            <h3>Carregando...</h3>
-          </div>
-        ) : (
-          <div>
-            {foodCategories && foodCategories.map((category, index) => (
-              index < MAX_CATEGORIES && (
+        <div>
+          {foodCategories && foodCategories.map((category, index) => (
+            index < MAX_CATEGORIES && (
               // button que filtra por categorias
-                <button
-                  type="button"
-                  key={ `${index}${category.strCategory}` }
-                  data-testid={ `${category.strCategory}-category-filter` }
-                  onClick={ async (e) => {
-                    console.log('cliquei no botão');
-                    setNameButton(e.target.textContent);
-                    setMeals(await handleFoodsFilter(e));
-                    if (toggle && e.target.textContent === nameButton) {
-                      setMeals(await fromFoodsName(''));
-                    }
-                    if (meals.length === 1) {
-                      setSingleResult(true);
-                    }
-                    setSingleResult(false);
-                    setToggle(!toggle);
-                  } }
-                >
-                  {category.strCategory}
-                </button>
-              )
-            ))}
-            {foodCategories
-        && (
-          <button
-            type="button"
-            data-testid="All-category-filter"
-            onClick={ async () => setMeals(await fromFoodsName('')) }
-          >
-            All
-          </button>
-        )}
-          </div>
-        ) }
+              <button
+                type="button"
+                key={ `${index}${category.strCategory}` }
+                data-testid={ `${category.strCategory}-category-filter` }
+                onClick={ async (e) => {
+                  console.log('cliquei no botão');
+                  setNameButton(e.target.textContent);
+                  setMeals(await handleFoodsFilter(e));
+                  if (toggle && e.target.textContent === nameButton) {
+                    setMeals(await fromFoodsName(''));
+                  }
+                  if (meals.length === 1) {
+                    setSingleResult(true);
+                  }
+                  setSingleResult(false);
+                  setToggle(!toggle);
+                } }
+              >
+                {category.strCategory}
+              </button>
+            )
+          ))}
+          {foodCategories
+            && (
+              <button
+                type="button"
+                data-testid="All-category-filter"
+                onClick={ async () => setMeals(await fromFoodsName('')) }
+              >
+                All
+              </button>
+            )}
+        </div>
         {meals && ((meals.length === 1 && singleResult)
           ? (<Redirect to={ `/foods/${meals[0].idMeal}` } />)
           : (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import context from './context';
 import * as request from '../services';
 import fetchFoodCategories, { fetchDrinkCategories } from '../services/fetchCategories';
@@ -20,6 +21,7 @@ function Provider({ children }) {
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
   const [listFav, setListFav] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -46,9 +48,17 @@ function Provider({ children }) {
     setFoodCategories(await fetchFoodCategories());
     switch (selectedOption) {
     case 'ingredient':
-      return setMeals(await request.fromFoodIngredient(input));
+      setMeals(await request.fromFoodIngredient(input));
+      if (meals.length === 1) {
+        history.push(`/foods/${meals[0].idMeal}`);
+      }
+      return;
     case 'name':
-      return setMeals(await request.fromFoodsName(input));
+      setMeals(await request.fromFoodsName(input));
+      if (meals.length === 1) {
+        history.push(`/foods/${meals[0].idMeal}`);
+      }
+      return;
     case 'first-letter':
       return input.length === 1
         ? setMeals(await request.fromFoodsFirstLetter(input))
