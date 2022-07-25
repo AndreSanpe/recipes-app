@@ -1,32 +1,70 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 // deve ser renderizado nas páginas food, drink e profile;
+// const [selected, setSelected] = useState();
 
 function Footer() {
+  const history = useHistory();
+  const [drinksClass, setDrinksClass] = useState(false);
+  const [foodsClass, setFoodsClass] = useState(false);
+  const [profileClass, setProfile] = useState(false);
+  const [favoriteClass, setFavoriteClass] = useState(false);
+
+  useEffect(() => {
+    if (history.location.pathname === '/drinks') {
+      setDrinksClass(true);
+    }
+    if (history.location.pathname === '/foods') {
+      setFoodsClass(true);
+    }
+    if (history.location.pathname === '/profile') {
+      setProfile(true);
+    }
+    if (history.location.pathname === '/favorite-recipes') {
+      setFavoriteClass(true);
+    }
+  }, []);
+
   return (
     <div
       className="footer flex justify-around py-2
-      sticky bottom-0 bg-white w-screen drop-shadow-2xl"
+      fixed bottom-0 bg-white w-screen drop-shadow-2xl"
       data-testid="footer"
     >
       <Link to="/drinks">
-        <span className="material-symbols-outlined text-stone-800 text-3xl font-light">
+        <span
+          className={ `${drinksClass
+            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
+            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+        >
           local_bar
         </span>
       </Link>
       <Link to="/foods">
-        <span className="material-symbols-outlined text-stone-800 text-3xl font-light">
+        <span
+          className={ `${foodsClass
+            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
+            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+        >
           restaurant
         </span>
       </Link>
       <Link to="/favorite-recipes">
-        <span className="material-symbols-outlined text-stone-800 text-3xl font-light">
+        <span
+          className={ `${favoriteClass
+            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
+            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+        >
           favorite
         </span>
       </Link>
       <Link to="/profile">
-        <span className="material-symbols-outlined text-stone-800 text-3xl font-light">
+        <span
+          className={ `${profileClass
+            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
+            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+        >
           account_circle
         </span>
       </Link>

@@ -50,8 +50,7 @@ function SearchBar() {
           // text-orange-500 outline-orange-500"
             className="py-1 px-2 text-sm text-orange-500 outline-orange-500
           bg-gray-50 rounded-md border border-gray-300
-          focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
-          dark:placeholder-gray-400 text-center"
+          focus:border-blue-500 text-center"
             placeholder="search"
             required
             id="search-input"
