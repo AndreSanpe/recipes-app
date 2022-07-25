@@ -23,27 +23,60 @@ function SearchBar() {
 
   return (
     <form>
-      <label htmlFor="search-input">
-        <input
-          placeholder="Search Recipe"
-          id="search-input"
-          name="search-input"
-          type="search"
-          data-testid="search-input"
-          value={ input }
-          onChange={ ({ target }) => setInput(target.value) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ onClickSendButton }
+      <label
+        htmlFor="search-input"
+        className="mb-2 text-sm font-medium text-gray-900
+        sr-only dark:text-gray-300"
       >
-        Buscar
-      </button>
-      <div>
+        {' '}
+        Email
+      </label>
+      <section className="flex">
+        <div className="relative">
+          <div
+            className="flex absolute mt-2
+        items-center pl-1 pointer-events-none"
+          >
+            <span
+              className="material-symbols-outlined text-2lg
+              w-2 h-12 text-gray-500 dark:text-gray-400"
+              aria-hidden="true"
+            >
+              search
+            </span>
+          </div>
+          <input
+          // className="drop-shadow-lg rounded-md mb-2 py-1 px-2 my-2 mr-2
+          // text-orange-500 outline-orange-500"
+            className="py-1 px-2 text-sm text-orange-500 outline-orange-500
+          bg-gray-50 rounded-md border border-gray-300
+          focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
+          dark:placeholder-gray-400 text-center"
+            placeholder="search"
+            required
+            id="search-input"
+            name="search-input"
+            type="search"
+            data-testid="search-input"
+            value={ input }
+            onChange={ ({ target }) => setInput(target.value) }
+          />
+          <button
+            className="bg-orange-500 text-white text-sm
+          px-3  py-1 rounded-md hover:bg-orange-600
+          active:bg-orange-600 font-semibold ml-2 mt-2"
+            type="button"
+            data-testid="exec-search-btn"
+            onClick={ onClickSendButton }
+          >
+            Buscar
+          </button>
+        </div>
+      </section>
+      <div className="flex justify-between">
         <label htmlFor="ingredient">
           <input
+            className="mr-1"
             name="option"
             id="ingredient"
             type="radio"
@@ -55,6 +88,7 @@ function SearchBar() {
         </label>
         <label htmlFor="name">
           <input
+            className="mr-1"
             name="option"
             id="name"
             type="radio"
@@ -66,6 +100,7 @@ function SearchBar() {
         </label>
         <label htmlFor="first-letter">
           <input
+            className="mr-1"
             name="option"
             id="first-letter"
             type="radio"

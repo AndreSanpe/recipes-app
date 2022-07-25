@@ -55,7 +55,8 @@ function Login() {
         />
         <Link to="/foods">
           <button
-            className="bg-orange-500 text-white px-24 py-1 rounded-md hover:bg-orange-600"
+            className="bg-orange-500 text-white px-24 py-1 rounded-md hover:bg-orange-600
+            active:bg-orange-600 font-semibold"
             type="button"
             data-testid="login-submit-btn"
             disabled={ isBtnLoginDisabled }

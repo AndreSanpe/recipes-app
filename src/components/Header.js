@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
-import profileIcon from '../images/profileIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
@@ -42,40 +42,21 @@ function Header() {
     } else { setShowSearchBar(false); }
   };
 
-  // useEffect(() => {
-  //   const searchBarText = () => {
-  //     if (showSearchBar) {
-  //       return setSearchBarTextState('Esconder barra de pesquisa');
-  //     }
-  //     return setSearchBarTextState('Mostrar barra de pesquisa');
-  //   };
-  //   searchBarText();
-  //   // console.log('entrou');
-  // }, [showSearchBar]);
   return (
-    <div>
-      <input
-        type="image"
-        src={ profileIcon }
-        alt="profile"
-        onClick={ () => history.push('/profile') }
-        data-testid="profile-top-btn"
-      />
-      {usesSearchIcon
-      && (
-        <div>
-          <input
-            type="image"
-            src={ searchIcon }
-            alt="search icon"
-            onClick={ handleSearchBar }
-            data-testid="search-top-btn"
-          />
-          {showSearchBar && <SearchBar />}
-        </div>
-      )}
-      {title && <h2 data-testid="page-title">{title}</h2>}
-    </div>
+    <section className="py-2 bg-slate-100 font-sans">
+      <div className="flex justify-center">
+        {/* <input
+          className="w-4"
+          type="image"
+          src={ searchIcon }
+          alt="search icon"
+          onClick={ handleSearchBar }
+          data-testid="search-top-btn"
+        /> */}
+        <SearchBar />
+      </div>
+      {/* {title && <h2 data-testid="page-title">{title}</h2>} */}
+    </section>
   );
 }
 
