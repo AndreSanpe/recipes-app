@@ -135,7 +135,7 @@ function FoodsDetails() {
       <iframe
         data-testid="video"
         title={ recipe.strMeal }
-        width="420"
+        width="350"
         height="315"
         src={ `https://www.youtube.com/embed/${videoURL}` }
       />

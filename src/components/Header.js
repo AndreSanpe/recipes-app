@@ -43,8 +43,8 @@ function Header() {
   };
 
   return (
-    <section className="py-2 bg-slate-100 font-sans">
-      <div className="flex justify-center">
+    <section className="py-2 px-2 bg-slate-100 font-sans">
+      <div className="flex justify-around">
         {/* <input
           className="w-4"
           type="image"

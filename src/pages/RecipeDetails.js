@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import DrinksDetails from '../components/DrinksDetails';
 import FoodsDetails from '../components/FoodsDetails';
+import Footer from '../components/Footer';
+// import Header from '../components/Header';
+// import Header2 from '../components/header2';
 
 function RecipeDetails() {
   const { functions: { setRecipeDetail, setRecomend }, // doneRecipes
@@ -68,7 +71,9 @@ function RecipeDetails() {
 
   return (
     <div>
+      {/* <Header2 /> */}
       {renderRecipe()}
+      <Footer />
     </div>
   );
 }

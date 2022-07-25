@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import CardFavorite from '../components/CardFavorite';
+import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
@@ -58,6 +59,7 @@ function FavoriteRecipes() {
       </button>
 
       <CardFavorite favorites={ favorites } chosenFilter={ theFilter } />
+      <Footer />
     </div>
   );
 }

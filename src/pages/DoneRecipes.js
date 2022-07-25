@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 // import context from '../context/context';
@@ -156,6 +157,7 @@ function DoneRecipes() {
             ))} */}
         </>
       )}
+      <Footer />
     </div>
   );
 }

@@ -29,7 +29,7 @@ function Recipes() {
       <main className="font-sans">
         <div
           className="flex justify-between sticky top-0 py-3 px-2
-         bg-white drop-shadow-md w-screen"
+         bg-white drop-shadow-md w-screen z-10"
         >
           {foodCategories
             && (
@@ -64,26 +64,44 @@ function Recipes() {
             && (meals.map((el, index) => (
               index < MAX_CARDS
               && (
-                <Link to={ `/foods/${meals[index].idMeal}` }>
-                  <div
-                    className="shadow-md py-3 px-2 rounded-md mb-4 bg-slate-50"
-                    key={ el.idMeal }
-                    data-testid={ `${index}-recipe-card` }
-                  >
-                    <span
-                      className="font-bold text-stone-800"
-                      data-testid={ `${index}-card-name` }
+                <div className="relative z-0">
+                  <Link to={ `/foods/${meals[index].idMeal}` }>
+                    <div
+                    // className="shadow-md py-3 px-2 rounded-md mb-4 bg-slate-50"
+                      className="my-6 z-0"
+                      key={ el.idMeal }
+                      data-testid={ `${index}-recipe-card` }
                     >
-                      { el.strMeal }
-                    </span>
-                    <img
-                      className="rounded-md  w-28"
-                      src={ el.strMealThumb }
-                      alt={ el.strMeal }
-                      data-testid={ `${index}-card-img` }
-                    />
-                  </div>
-                </Link>
+
+                      <img
+                        className="rounded-md  w-36"
+                        src={ el.strMealThumb }
+                        alt={ el.strMeal }
+                        data-testid={ `${index}-card-img` }
+                      />
+
+                      <div
+                        className="absolute bottom-2 bg-white/75 w-36 pb-4
+                      flex flex-column"
+                      >
+                        <span
+                          className="font-bold text-stone-800 pl-2"
+                          data-testid={ `${index}-card-name` }
+                        >
+                          { el.strMeal }
+                        </span>
+
+                        <span
+                          className="font-normal text-stone-600 pl-2"
+                          data-testid={ `${index}-card-name` }
+                        >
+                          { el.strArea}
+                        </span>
+                      </div>
+
+                    </div>
+                  </Link>
+                </div>
               )
             )))}
         </section>
