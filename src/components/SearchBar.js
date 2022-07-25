@@ -10,9 +10,7 @@ function SearchBar() {
 
   const location = useLocation();
 
-  const onClickSendButton = (e) => {
-    e.preventDefault();
-
+  const onClickSendButton = () => {
     if (location.pathname === '/foods') {
       requestFoodAPI();
     }
@@ -24,7 +22,7 @@ function SearchBar() {
   };
 
   return (
-    <form onSubmit={ () => onClickSendButton({ target }) }>
+    <form>
       <label htmlFor="search-input">
         <input
           placeholder="Search Recipe"
@@ -37,7 +35,7 @@ function SearchBar() {
         />
       </label>
       <button
-        type="submit"
+        type="button"
         data-testid="exec-search-btn"
         onClick={ onClickSendButton }
       >
