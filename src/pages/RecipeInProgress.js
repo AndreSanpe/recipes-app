@@ -101,10 +101,12 @@ function RecipeInProgress() {
 
                 </button>
                 <p data-testid="recipe-category">{ el.strCategory }</p>
+
                 <IngredientInput
                   srcRecipe={ srcRecipe }
                   setBtnDisabled={ setBtnDisabled }
                 />
+
                 <p data-testid="instructions">{ el.strInstructions }</p>
                 <button
                   type="button"
