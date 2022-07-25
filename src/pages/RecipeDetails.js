@@ -36,6 +36,7 @@ function RecipeDetails() {
           .then((resp) => resp.json());
         const recomendedDrinks = response.drinks.slice(0, SIX);
         setRecomend(recomendedDrinks);
+        // console.log(recomendedDrinks);
       }
 
       if (window.location.pathname.includes('/drinks')) {
@@ -43,6 +44,7 @@ function RecipeDetails() {
           .then((resp) => resp.json());
         const recomendedMeals = response.meals.slice(0, SIX);
         setRecomend(recomendedMeals);
+        console.log(recomendedMeals);
       }
     };
 
