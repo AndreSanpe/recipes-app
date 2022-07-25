@@ -25,6 +25,7 @@ function Provider({ children }) {
   const [toggle, setToggle] = useState(false);
   const [nameButton, setNameButton] = useState('');
   const history = useHistory();
+  const [filterBtnClassName, setFilterBtnClassName] = useState(false);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -103,6 +104,9 @@ function Provider({ children }) {
       setMeals(await request.fromFoodsName(''));
     }
     setToggle(!toggle);
+    setFilterBtnClassName(!filterBtnClassName);
+    e.target.classList.add('bg-orange-500');
+    e.target.classList.add('text-white');
   };
 
   const allBtnFilter = async () => setMeals(await request.fromFoodsName(''));
@@ -133,6 +137,7 @@ function Provider({ children }) {
     inProgressRecipes,
     doneRecipes,
     allFavoriteRecipes,
+    filterBtnClassName,
   };
 
   const functions = {

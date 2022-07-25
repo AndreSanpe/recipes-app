@@ -8,7 +8,7 @@ import fetchFoodCategories from '../services/fetchCategories';
 
 function Recipes() {
   const {
-    states: { meals, foodCategories },
+    states: { meals, foodCategories, filterBtnClassName },
     functions: { setMeals, setFoodCategories, filterBtnFood, allBtnFilter },
   } = useContext(context);
 
@@ -47,7 +47,7 @@ function Recipes() {
             index < MAX_CATEGORIES && (
               // button que filtra por categorias
               <button
-                className="bg-slate-50 p-2 mr-1 rounded-md text-xs shadow-md"
+                className="p-2 mr-1 rounded-md text-xs shadow-md"
                 type="button"
                 key={ `${index}${category.strCategory}` }
                 data-testid={ `${category.strCategory}-category-filter` }
@@ -59,7 +59,7 @@ function Recipes() {
           ))}
 
         </div>
-        <section className="mt-8 flex flex-wrap justify-evenly">
+        <section className="mt-8 flex flex-wrap justify-evenly mb-20">
           {meals
             && (meals.map((el, index) => (
               index < MAX_CARDS
