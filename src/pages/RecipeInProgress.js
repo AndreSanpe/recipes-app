@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import context from '../context/context';
 import IngredientInput from '../components/IngredientInput';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress() {
   const {
@@ -10,37 +12,93 @@ function RecipeInProgress() {
   } = useContext(context);
 
   const { recipe } = recipeDetail;
-  // console.log(recipe);
-  // console.log(recipeDetail);
-  // console.log(meals);
 
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [copyMessage, setCopyMessage] = useState(false);
-  const history = useHistory();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(whiteHeartIcon);
 
-  // const copyLinkRecepie = (link) => {
-  //   navigator.clipboard.writeText(link);
-  //   setCopyMessage(true);
-  // };
+  const history = useHistory();
+  const { id: idRoute } = useParams();
+  const localStorageFavs = localStorage.getItem('favoriteRecipes');
+
+  const copyLinkRecepie = () => {
+    const url = window.location.href;
+    const newURL = url.replace('/in-progress', '');
+    navigator.clipboard.writeText(newURL);
+    setCopyMessage(true);
+  };
 
   const srcRecipe = [];
   srcRecipe.push(recipe);
-  console.log(srcRecipe);
 
-  const handleShareBtn = () => {
-    const id = window.location.pathname.split('/')[2];
-    // log(srcRecipe);
-    if (window.location.pathname.includes('/foods')) {
-      const link = `http://localhost:3000/foods/${id}`;
-      copy(link);
-      setCopyMessage('Link copied!');
-    }
+  const sendLocalStorage = () => {
+    console.log(recipeDetail);
+    let newFavRecipe = {
+    };
     if (window.location.pathname.includes('/drinks')) {
-      const link = `http://localhost:3000/drinks/${id}`;
-      copy(link);
-      setCopyMessage('Link copied!');
+      newFavRecipe = {
+        id: idRoute,
+        type: recipeDetail.type,
+        nationality: '',
+        category: recipe.strCategory,
+        alcoholicOrNot: recipe.strAlcoholic,
+        name: recipe.strDrink,
+        image: recipe.strDrinkThumb,
+      };
+    } else {
+      newFavRecipe = {
+        id: idRoute,
+        type: recipeDetail.type,
+        nationality: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+      };
+    }
+    if (localStorageFavs) {
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      stage.push(newFavRecipe);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(stage));
+      console.log(stage);
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([newFavRecipe]));
+    }
+    setIsFavorited(true);
+    setBtnFavoriteRecipe(blackHeartIcon);
+  };
+  // remove do localStorage
+  const removeLocalStorage = () => {
+    if (localStorageFavs) {
+      const stage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const updatedFavList = stage.filter((el) => el.id !== idRoute);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavList));
+      console.log(updatedFavList);
+      setIsFavorited(false);
+      setBtnFavoriteRecipe(whiteHeartIcon);
     }
   };
+
+  const handleFavoriteBtn = () => {
+    if (!isFavorited) {
+      sendLocalStorage();
+    } else {
+      removeLocalStorage();
+    }
+  };
+
+  useEffect(() => {
+    const favoriteLS = localStorage.getItem('favoriteRecipes');
+    if (favoriteLS) {
+      const stage = JSON.parse(favoriteLS);
+      const updatedFavList = stage.find((el) => el.id === idRoute);
+      if (updatedFavList) {
+        setBtnFavoriteRecipe(blackHeartIcon);
+        setIsFavorited(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const id = window.location.pathname.split('/')[2];
@@ -87,19 +145,20 @@ function RecipeInProgress() {
                 <button
                   type="button"
                   data-testid="share-btn"
-                  onClick={ handleShareBtn }
+                  onClick={ copyLinkRecepie }
                 >
                   Compartilhar
 
                 </button>
-                { copyMessage && <span>{ copyMessage }</span> }
-                <button
-                  type="button"
+                { copyMessage && <span>Link copied!</span> }
+                <input
+                  style={ { marginLeft: '20px' } }
+                  type="image"
                   data-testid="favorite-btn"
-                >
-                  Favoritar
-
-                </button>
+                  onClick={ handleFavoriteBtn }
+                  src={ btnFavoriteRecipe }
+                  alt="favoritar"
+                />
                 <p data-testid="recipe-category">{ el.strCategory }</p>
 
                 <IngredientInput
@@ -124,7 +183,15 @@ function RecipeInProgress() {
           <div>
             {
               srcRecipe.map((el) => (
-                <div key={ el.idDrink }>
+                <div
+                  key={ el.idDrink }
+                  style={ {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+
+                  } }
+                >
                   <h3 data-testid="recipe-title">{ el.strDrink }</h3>
                   <img
                     style={ { width: '100px' } }
@@ -135,19 +202,20 @@ function RecipeInProgress() {
                   <button
                     type="button"
                     data-testid="share-btn"
-                    onClick={ handleShareBtn }
+                    onClick={ copyLinkRecepie }
                   >
                     Compartilhar
 
                   </button>
-                  { copyMessage && <span>{ copyMessage }</span> }
-                  <button
-                    type="button"
+                  { copyMessage && <span>Link copied!</span> }
+                  <input
+                    style={ { marginLeft: '20px' } }
+                    type="image"
                     data-testid="favorite-btn"
-                  >
-                    Favoritar
-
-                  </button>
+                    onClick={ handleFavoriteBtn }
+                    src={ btnFavoriteRecipe }
+                    alt="favoritar"
+                  />
                   <p data-testid="recipe-category">{ el.strCategory }</p>
                   <IngredientInput
                     srcRecipe={ srcRecipe }

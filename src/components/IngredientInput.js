@@ -37,7 +37,7 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
         .stringify({ ...inProgressRecipes }));
     };
     sendDataToLocalStorage();
-    console.log(validateBtn);
+    // console.log(validateBtn);
   }, [inProgressRecipes]);
 
   // console.log(b);
@@ -63,8 +63,8 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
         .filter((it) => ((it === true)));
       const nameIng = Object.keys(inProgressRecipes)
         .filter((element) => (element.includes(ingredientList)));
-      console.log(nameIng);
-      console.log(el[1]);
+      // console.log(nameIng);
+      // console.log(el[1]);
       if (ingredientList.length === numOfChecked.length
       && nameIng.includes) {
         setBtnDisabled(false);
@@ -76,7 +76,8 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
     <div>
       {
         ingredientList.map((ing, index) => {
-          const isChecked = inProgressRecipes[`${ing[1]}`] || false;
+          const isChecked = inProgressRecipes[`${ing[1]}`] ? 1 : false;
+          console.log(isChecked);
           // setBtnDisabled(!isChecked);
           toggleButton();
           return (
@@ -90,7 +91,7 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
                 name={ `${ing[1]}` }
                 id={ `${index}-ingredient-step` }
                 type="checkbox"
-                checked={ isChecked }
+                checked={ inProgressRecipes[`${ing[1]}`] }
                 onChange={ ({ target }) => handleChange(target) }
               />
               {
