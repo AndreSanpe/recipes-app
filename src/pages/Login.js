@@ -25,33 +25,47 @@ function Login() {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        data-testid="email-input"
-        placeholder="email"
-        name="email"
-        onChange={ handleChange }
+    <section
+      className="login-bg w-screen h-screen flex flex-column items-center justify-center"
+    >
+      <img
+        className="w-64 mb-14"
+        alt="trybe cook"
+        src="https://user-images.githubusercontent.com/95686401/180849627-234b1977-534c-4163-abb7-00a91959d143.png"
       />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="password"
-        name="password"
-        onChange={ handleChange }
-      />
-      <Link to="/foods">
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ isBtnLoginDisabled }
-          onClick={ sendDataToLocalStorage }
-        >
-          Enter
-        </button>
-      </Link>
+      <form
+        className="flex flex-column"
+      >
+        <input
+          className="rounded-md mb-6 py-1 px-2"
+          type="email"
+          data-testid="email-input"
+          placeholder="email"
+          name="email"
+          onChange={ handleChange }
+        />
+        <input
+          className="rounded-md mb-6 py-1 px-2"
+          type="password"
+          data-testid="password-input"
+          placeholder="password"
+          name="password"
+          onChange={ handleChange }
+        />
+        <Link to="/foods">
+          <button
+            className="bg-"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ isBtnLoginDisabled }
+            onClick={ sendDataToLocalStorage }
+          >
+            Enter
+          </button>
+        </Link>
 
-    </form>
+      </form>
+    </section>
   );
 }
 
