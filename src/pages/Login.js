@@ -26,7 +26,8 @@ function Login() {
 
   return (
     <section
-      className="login-bg w-screen h-screen flex flex-column items-center justify-center"
+      className="login-bg w-screen h-screen flex flex-column items-center justify-center
+      font-sans"
     >
       <img
         className="w-64 mb-14"
@@ -37,24 +38,24 @@ function Login() {
         className="flex flex-column"
       >
         <input
-          className="rounded-md mb-6 py-1 px-2"
+          className="rounded-md mb-2 py-1 px-2 text-center text-orange-500"
           type="email"
           data-testid="email-input"
-          placeholder="email"
+          placeholder="Email"
           name="email"
           onChange={ handleChange }
         />
         <input
-          className="rounded-md mb-6 py-1 px-2"
+          className="rounded-md mb-4 py-1 px-2 text-center text-orange-500"
           type="password"
           data-testid="password-input"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           onChange={ handleChange }
         />
         <Link to="/foods">
           <button
-            className="bg-"
+            className="bg-orange-500 text-white px-24 py-1 rounded-md hover:bg-orange-600"
             type="button"
             data-testid="login-submit-btn"
             disabled={ isBtnLoginDisabled }
