@@ -16,7 +16,7 @@ function Recipes() {
   const MAX_CATEGORIES = 5;
   const btnClassUnselected = 'p-2 mr-1 rounded-md text-xs shadow-md';
   const btnClassSelected = `p-2 mr-1 rounded-md text-xs 
-  shadow-md bg-orange-500 text-white -translate-y-3`;
+  shadow-md bg-orange-500 text-white -translate-y-3 font-bold`;
   useEffect(() => {
     async function startMeal() {
       setMeals(await fromFoodsName(''));
