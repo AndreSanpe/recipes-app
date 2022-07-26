@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import context from '../context/context';
@@ -154,6 +156,11 @@ function RecipeInProgress() {
                   alt={ el.strMeal }
                   data-testid="recipe-photo"
                 />
+
+                <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-48">
+                  <h4 className="text-xl pl-6" data-testid="recipe-category">{recipe.strCategory}</h4>
+                </div>
+
                 <div className="flex flex-row border-b-4 mt-4 space-x-8">
                   <button
                     className="absolute top-28 left-24"
@@ -207,8 +214,10 @@ function RecipeInProgress() {
                 </div>
                 <div className="flex justify-center">
                   <button
-                    className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-2 font-sans font-bold text-white
-                  hover:bg-orange-600 shadow-lg"
+                  //   className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-10 font-sans font-bold text-white
+                  // hover:bg-orange-600 shadow-lg"
+                    className="bg-orange-500 text-white text-sm mb-24 px-20 py-2
+              rounded-md hover:bg-orange-600 active:bg-orange-600 font-semibold"
                     type="button"
                     data-testid="finish-recipe-btn"
                     disabled={ btnDisabled }
@@ -257,6 +266,11 @@ function RecipeInProgress() {
                     alt={ el.strDrink }
                     data-testid="recipe-photo"
                   />
+
+                  <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-48">
+                    <h4 className="text-xl pl-6" data-testid="recipe-category">{recipe.strCategory}</h4>
+                  </div>
+
                   <div className="flex flex-row border-b-4 mt-4 space-x-8">
                     <button
                       className="absolute top-28 left-24"
@@ -278,7 +292,7 @@ function RecipeInProgress() {
                     />
                   </div>
                   {/* <p data-testid="recipe-category">{ el.strCategory }</p> */}
-                  <div className="mr-40 pr-4">
+                  <div className="w-96">
                     <IngredientInput
                       srcRecipe={ srcRecipe }
                       setBtnDisabled={ setBtnDisabled }
@@ -287,7 +301,7 @@ function RecipeInProgress() {
                   <div className="border-y-4 mt-7 mb-4">
                     <p
                       className="text-lg font-semibold m-0 p-2 ml-5 pt-3
-          text-start text-orange-500"
+                      text-start text-orange-500"
                     >
                       Details:
 
@@ -302,8 +316,10 @@ function RecipeInProgress() {
                   </div>
                   <div className="flex justify-center">
                     <button
-                      className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-2 font-sans font-bold text-white
-                       hover:bg-orange-600 shadow-lg"
+                      // className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-10 font-sans font-bold text-white
+                      //  hover:bg-orange-600 shadow-lg"
+                      className="bg-orange-500 text-white text-sm mb-24 px-20 py-2
+                      rounded-md hover:bg-orange-600 active:bg-orange-600 font-semibold"
                       type="button"
                       data-testid="finish-recipe-btn"
                       disabled={ btnDisabled }

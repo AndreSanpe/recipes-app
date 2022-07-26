@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientList from './IngredientList';
-// import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import HorizontalSlideFood from './HorizontalSlideFood';
@@ -162,14 +162,14 @@ function FoodsDetails() {
             onClick={ handleShareBtn }
           >
             <p className="font-bold text-justify text-sm">{ btnShareTxt }</p>
-            {/* <img className="w-10 pl-3 mr-2" alt="share" src={ shareIcon } />
-           */}
-            <span
+            <img className="mt-1" alt="share" src={ shareIcon } />
+
+            {/* <span
               className="material-symbols-outlined pt-1
           material-symbols-outlined text-stone-800 text-3xl font-light"
             >
               share
-            </span>
+            </span> */}
           </button>
         </div>
 
@@ -189,7 +189,7 @@ function FoodsDetails() {
         </div>
       </section>
 
-      <section className="flex flex-column  px-14 border-y-2 mt-4">
+      <section className="flex flex-column px-14 border-y-2 mt-4">
         <p
           className="text-lg font-semibold m-0 pt-3
           text-start text-orange-500"

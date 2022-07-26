@@ -16,7 +16,7 @@ export default function Index({ recomend }) {
         {/* Carousel for mobile and Small size Devices */}
         <CarouselProvider className="block md:hidden" naturalSlideWidth={ 100 } isIntrinsicHeight totalSlides={ 6 } visibleSlides={ 1 } step={ 1 } infinite>
           <div className="w-full relative flex items-center justify-center px-3">
-            <ButtonBack role="button" aria-label="slide backward" className="z-1 absolute z-30 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer" id="prev">
+            <ButtonBack role="button" aria-label="slide backward" className="absolute z-0 left-0 ml-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer" id="prev">
               <svg width={ 8 } height={ 14 } viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 1L1 7L7 13" stroke="black" strokeWidth={ 2 } strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -42,7 +42,7 @@ export default function Index({ recomend }) {
                 </div>
               </Slider>
             </div>
-            <ButtonNext role="button" aria-label="slide forward" className="z-0 absolute z-30 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400" id="next">
+            <ButtonNext role="button" aria-label="slide forward" className="absolute z-1 right-0 mr-8 focus:outline-none focus:bg-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-gray-400" id="next">
               <svg width={ 8 } height={ 14 } viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L7 7L1 13" stroke="black" strokeWidth={ 2 } strokeLinecap="round" strokeLinejoin="round" />
               </svg>

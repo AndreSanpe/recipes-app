@@ -3,6 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
+import shareIcon from '../images/shareIcon.svg';
 import IngredientList from './IngredientList';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -157,12 +158,7 @@ function DrinksDetails() {
             onClick={ handleShareBtn }
           >
             <p className="font-bold text-justify text-sm">{ btnShareTxt }</p>
-            <span
-              className="material-symbols-outlined pt-1
-          material-symbols-outlined text-stone-800 text-3xl font-light"
-            >
-              share
-            </span>
+            <img className="mt-2" alt="share" src={ shareIcon } />
           </button>
         </div>
 
@@ -177,8 +173,8 @@ function DrinksDetails() {
           />
         </div>
 
-        <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-36">
-          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+        <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-48">
+          <h4 className="text-xl pl-6" data-testid="recipe-category">{recipe.strCategory}</h4>
         </div>
       </section>
 
@@ -201,7 +197,7 @@ function DrinksDetails() {
           Details:
         </p>
         <p
-          className="overflow-y-auto h-60 mb-2"
+          className="overflow-y-auto h-24 mb-2"
           data-testid="instructions"
         >
           {recipe.strInstructions}
@@ -210,7 +206,7 @@ function DrinksDetails() {
       </section>
 
       <div className="">
-        <p className="text-lg font-semibold m-0 pt-3 text-start text-orange-500 pl-14">Recommended Drinks: </p>
+        <p className="text-lg font-semibold m-0 pt-3 text-start text-orange-500 pl-14">Recommended Food: </p>
         <HorizontalSlideDrinks recomend={ recomend } />
       </div>
 
