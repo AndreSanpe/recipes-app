@@ -8,6 +8,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
+import About from './pages/About';
 
 function AllRoutes() {
   return (
@@ -22,6 +23,8 @@ function AllRoutes() {
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+      <Route exact path="/about" component={ About } />
+
     </Switch>
   );
 }

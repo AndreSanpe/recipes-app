@@ -72,7 +72,7 @@ function Footer() {
           account_circle
         </span>
       </Link>
-      <Link to="/foods">
+      <Link to="/about">
         <img
           className="w-10 my-1"
           alt="logo trybe cook"
