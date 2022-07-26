@@ -13,7 +13,8 @@ function Footer() {
   const btnClassUnselected = `material-symbols-outlined 
   text-stone-800 text-3xl font-light`;
   const btnClassSelected = `material-symbols-outlined 
-  text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2`;
+  text-stone-800 text-3xl font-light text-orange-600
+   font-bold active:mb-2 -translate-y-11 bg-white rounded-t-[30px] pt-2`;
 
   useEffect(() => {
     if (history.location.pathname === '/drinks') {
