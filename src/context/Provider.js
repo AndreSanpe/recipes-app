@@ -111,15 +111,18 @@ function Provider({ children }) {
   };
 
   const filterBtnDrink = async (e) => {
-    setNameButton(e.target.textContent);
+    setNameButton(e.target.name);
     setDrinks(await handleDrinksFilter(e));
-    if (toggle && e.target.textContent === nameButton) {
+    if (toggle && e.target.name === nameButton) {
       setDrinks(await request.fromDrinksName(''));
     }
     setToggle(!toggle);
   };
 
-  const allBtnFilterDrinks = async () => setDrinks(await request.fromDrinksName(''));
+  const allBtnFilterDrinks = async () => {
+    setNameButton('All');
+    setDrinks(await request.fromDrinksName(''));
+  };
 
   const states = {
     email,

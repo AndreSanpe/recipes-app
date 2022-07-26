@@ -13,7 +13,9 @@ function Footer() {
   const btnClassUnselected = `material-symbols-outlined 
   text-stone-800 text-3xl font-light`;
   const btnClassSelected = `material-symbols-outlined 
-  text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2`;
+  text-stone-800 text-3xl font-light text-orange-600
+   font-bold active:mb-2 -translate-y-8 
+   bg-orange-500 text-white rounded-[30px] p-2 shadow`;
 
   useEffect(() => {
     if (history.location.pathname === '/drinks') {
@@ -72,7 +74,7 @@ function Footer() {
           account_circle
         </span>
       </Link>
-      <Link to="/foods">
+      <Link to="/about">
         <img
           className="w-10 my-1"
           alt="logo trybe cook"

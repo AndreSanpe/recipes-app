@@ -33,7 +33,7 @@ export const handleFoodsFilter = async ({ target }) => {
 };
 
 export const handleDrinksFilter = async ({ target }) => {
-  const param = target.textContent;
+  const param = target.name;
   const response = await fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${param}`,
   ).then((resp) => resp.json()).catch(() => global.alert(alertError));
