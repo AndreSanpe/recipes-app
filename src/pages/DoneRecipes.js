@@ -109,7 +109,7 @@ function DoneRecipes() {
           Drinks
         </button>
       </div>
-      <section className="mt-8 flex flex-wrap justify-evenly">
+      <section className="flex flex-column">
         {doneRecipes.length
       && (
         <>
@@ -117,11 +117,11 @@ function DoneRecipes() {
             .filter((i) => i.type.includes(typeOfRecipe))
             .map((el, index) => (el.type === 'food'
               ? (
-                <div className="relative z-0" key={ el.name }>
+                <div className="relative" key={ el.name }>
                   <Link to={ `/foods/${el.id}` }>
                     <div className="my-6 z-0">
                       <img
-                        className="rounded-md  w-36"
+                        className="rounded-md  w-40"
                         style={ { width: '100px' } }
                         type="image"
                         src={ el.image }

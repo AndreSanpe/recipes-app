@@ -46,7 +46,8 @@ function CardFavorite({ favorites, chosenFilter }) {
         && favoriteList.map((item, index) => (
           <div
             key={ item.id }
-            className="flex m-2 p-2 rounded-lg w-90 h-90 border-2 border-inherit drop-shadow-2xl"
+            className="flex m-2 p-2 rounded-lg w-90 h-90
+            border-2 border-inherit drop-shadow-2xl"
           >
             <div className="w-1/2">
               <Link to={ `/${item.type}s/${item.id}` }>
