@@ -28,10 +28,10 @@ function CardFavorite({ favorites, chosenFilter }) {
   }, [chosenFilter]);
 
   function handleShare(id, type) {
-    const CINCO_SEGUNDOS = 5000;
+    const TRES_SEGUNDOS = 3000;
     copy(`http://localhost:3000/${type}s/${id}`);
     setIsCopied(true);
-    setTimeout(() => setIsCopied(false), CINCO_SEGUNDOS);
+    setTimeout(() => setIsCopied(false), TRES_SEGUNDOS);
   }
 
   function handleUnfavorite(id) {
@@ -41,71 +41,88 @@ function CardFavorite({ favorites, chosenFilter }) {
   }
 
   return (
-    <div>
-      {favoriteList && favoriteList.map((item, index) => (
-        <div
-          key={ item.id }
-          style={ {
-            display: 'flex',
-            border: '1px solid',
-            margin: '10px',
-            padding: '10px',
-          } }
-        >
-          <Link to={ `/${item.type}s/${item.id}` }>
-            <img
-              style={ { width: '100px', margin: '10px' } }
-              src={ item.image }
-              alt={ item.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-          <div style={ { display: 'flex', flexDirection: 'column' } }>
-            <div>
-              {item.type === 'food' && (
-                <span data-testid={ `${index}-horizontal-top-text` }>
-                  {`${item.nationality} - ${item.category} `}
-                </span>
-              )}
-
-              {item.type === 'drink' && (
-                <span data-testid={ `${index}-horizontal-top-text` }>
-                  {item.alcoholicOrNot}
-                </span>
-              )}
-
+    <div className="flex-col">
+      {favoriteList
+        && favoriteList.map((item, index) => (
+          <div
+            key={ item.id }
+            className="flex m-2 p-2 rounded-lg w-90 h-90 border-2 border-inherit drop-shadow-2xl"
+          >
+            <div className="w-1/2">
               <Link to={ `/${item.type}s/${item.id}` }>
-                <h3 data-testid={ `${index}-horizontal-name` }>{item.name}</h3>
+                <img
+                  className="rounded-md w-32 h-32"
+                  src={ item.image }
+                  alt={ item.name }
+                  data-testid={ `${index}-horizontal-image` }
+                />
               </Link>
             </div>
-            <div>
-              <button
-                type="button"
-                src={ shareIcon }
-                data-testid={ `${index}-horizontal-share-btn` }
-                style={ { margin: '10px' } }
-                onClick={ () => {
-                  handleShare(item.id, item.type);
-                } }
-              >
-                <img src={ shareIcon } alt="share icon" />
-              </button>
 
-              <button
-                type="button"
-                src={ blackHeartIcon }
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                style={ { margin: '10px' } }
-                onClick={ () => handleUnfavorite(item.id) }
-              >
-                <img src={ blackHeartIcon } alt="favorite icon" />
-              </button>
+            <div className="flex-col w-4/5 ml-2">
+              <div>
+                {item.type === 'food' && (
+                  <span
+                    className="font-normal text-stone-600"
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {`${item.nationality} - ${item.category} `}
+                  </span>
+                )}
 
-              <div>{isCopied && <span>Link copied!</span>}</div>
+                {item.type === 'drink' && (
+                  <span
+                    className="font-normal text-stone-600"
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    {item.alcoholicOrNot}
+                  </span>
+                )}
+                <Link to={ `/${item.type}s/${item.id}` }>
+                  <h4
+                    className="font-bold text-stone-800"
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    {item.name}
+                  </h4>
+                </Link>
+              </div>
+              <div className=" flex justify-end">
+                <div>
+                  {isCopied && (
+                    <span className="font-normal text-stone-500">
+                      Link copied!
+                    </span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  style={ { margin: '10px' } }
+                  onClick={ () => {
+                    handleShare(item.id, item.type);
+                  } }
+                >
+                  <span className="material-symbols-outlined text-orange-600">
+                    share
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  className=""
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  style={ { margin: '10px' } }
+                  onClick={ () => handleUnfavorite(item.id) }
+                >
+                  <span className="material-symbols-outlined text-orange-600">
+                    favorite
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 }
