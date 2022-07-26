@@ -240,6 +240,7 @@ function DoneRecipes() {
                       {isLinkCopied && <p>Link copied!</p>}
                     </div>
                   </Link>
+
                 </div>
               )))}
             {/* {console.log(doneRecipes)}
