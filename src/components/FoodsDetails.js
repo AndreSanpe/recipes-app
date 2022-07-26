@@ -153,7 +153,7 @@ function FoodsDetails() {
           />
         </section>
         <div
-          className="absolute top-24 left-20 pb-4"
+          className="absolute top-24 left-16 pb-4"
         >
           <button
             className="w-8 flex w-24"
@@ -177,7 +177,7 @@ function FoodsDetails() {
           />
         </div>
 
-        <div className="absolute top-72 left-14 pt-0 ml-3 pl-2 bg-white/50 w-36">
+        <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-48">
           <h4 className="text-xl pl-6" data-testid="recipe-category">{recipe.strCategory}</h4>
         </div>
       </section>
