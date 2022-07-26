@@ -33,7 +33,7 @@ function Footer() {
   return (
     <div
       className="footer flex justify-around py-2
-      fixed bottom-0 bg-white w-screen drop-shadow-2xl"
+      fixed bottom-0 bg-white w-screen drop-shadow-2xl z-10"
       data-testid="footer"
     >
       <Link to="/foods">

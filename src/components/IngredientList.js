@@ -19,8 +19,8 @@ function IngredientList() {
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
             { mesurementList[index]
-              ? (`  ${ing[1]} - ${mesurementList[index][1]}`)
-              : (`  ${ing[1]}`)}
+              ? (` 🔸  ${ing[1]} - ${mesurementList[index][1]}`)
+              : (` 🔸  ${ing[1]}`)}
           </li>
         ))
 

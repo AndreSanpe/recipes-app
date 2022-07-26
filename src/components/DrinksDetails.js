@@ -1,10 +1,12 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-len */
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientList from './IngredientList';
-import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import HorizontalSlideDrinks from './HorizontalSlideDrinks';
 
 const copy = require('clipboard-copy');
 
@@ -15,7 +17,7 @@ function DrinksDetails() {
 
   // estados do COMPONENTE: botões
   const [btnText, setBtnText] = useState('Start Recipe');
-  const [btnShareTxt, setBtnShareTxt] = useState('Share');
+  const [btnShareTxt, setBtnShareTxt] = useState('');
   const [isFavorited, setIsFavorited] = useState(false);
   const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(whiteHeartIcon);
 
@@ -117,69 +119,112 @@ function DrinksDetails() {
   };
 
   return (
-    <div>
-      <img
-        className="w-75"
-        data-testid="recipe-photo"
-        alt={ recipe.strDrink }
-        src={ recipe.strDrinkThumb }
-      />
-      <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-      <h4 data-testid="recipe-category">{recipe.strAlcoholic}</h4>
-      <IngredientList />
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+    <div className="font-sans flex flex-column">
+      <Link
+        to="/foods"
+      >
+        <span
+          className="material-symbols-outlined
+        text-gray-900 active:text-orange-600 mt-3 ml-3"
+        >
+          arrow_back
+        </span>
+      </Link>
 
-      {/* carousel */}
-      <div style={ { display: 'flex', overflow: 'auto', whiteSpace: 'nowrap' } }>
-        {
-          recomend.map((el, index) => (
-            <section data-testid={ `${index}-recomendation-card` } key={ index }>
-              <p data-testid={ `${index}-recomendation-title` }>
-                { el.strMeal }
-              </p>
-              <img
-                className="recomend-img"
-                src={ el.strMealThumb }
-                alt={ el.strMeal }
-              />
-            </section>
-          ))
-        }
+      <h2
+        className="font-bold text-2xl text-center text-orange-500"
+        data-testid="recipe-title"
+      >
+        {recipe.strDrink}
+
+      </h2>
+
+      <section>
+        <section className="flex justify-center">
+          <img
+            className="rounded-lg w-64 drop-shadow-lg"
+            data-testid="recipe-photo"
+            alt={ recipe.strDrink }
+            src={ recipe.strDrinkThumb }
+          />
+        </section>
+        <div
+          className="absolute top-24 left-20 pb-4"
+        >
+          <button
+            className="w-8 flex w-24"
+            type="button"
+            data-testid="share-btn"
+            onClick={ handleShareBtn }
+          >
+            <p className="font-bold text-justify text-sm">{ btnShareTxt }</p>
+            <span
+              className="material-symbols-outlined pt-1
+          material-symbols-outlined text-stone-800 text-3xl font-light"
+            >
+              share
+            </span>
+          </button>
+        </div>
+
+        <div className="absolute top-24 left-64 pt-2 pl-2">
+          <input
+            className="w-8"
+            type="image"
+            data-testid="favorite-btn"
+            onClick={ handleFavoriteBtn }
+            src={ btnFavoriteRecipe }
+            alt="favoritar"
+          />
+        </div>
+
+        <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-36">
+          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+        </div>
+      </section>
+
+      <section className="flex flex-column  px-14">
+        <p
+          className="text-lg font-semibold m-0 pt-3
+          text-start text-orange-500"
+        >
+          Ingredients:
+
+        </p>
+        <IngredientList />
+      </section>
+
+      <section className="flex flex-column  px-14">
+        <p
+          className="text-lg font-semibold m-0 pt-3
+        text-start text-orange-500"
+        >
+          Details:
+        </p>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </section>
+
+      <div className="">
+        <p className="text-lg font-semibold m-0 pt-3 text-start text-orange-500 pl-14">Recommended Drinks: </p>
+        <HorizontalSlideDrinks recomend={ recomend } />
       </div>
+
       {
         showButtonStartRecipe() && (
-          <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
-            <button
-              id="btnStartRecipe"
-              style={ { position: 'fixed', bottom: '0' } }
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              { btnText }
-            </button>
-          </Link>
+          <div className="flex justify-center">
+            <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
+              <button
+                className="bg-orange-500 text-white text-sm mb-24 px-24 py-2
+              rounded-md hover:bg-orange-600 active:bg-orange-600 font-semibold"
+                type="button"
+                data-testid="start-recipe-btn"
+              >
+                { btnText }
+              </button>
+            </Link>
+          </div>
         )
       }
-
-      <button
-        // style={ { position: 'fixed', bottom: '0' } }
-        style={ { marginLeft: '120px' } }
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleShareBtn }
-      >
-        { btnShareTxt }
-        {'  '}
-        <img alt="share" src={ shareIcon } />
-      </button>
-      <input
-        style={ { marginLeft: '20px' } }
-        type="image"
-        data-testid="favorite-btn"
-        onClick={ handleFavoriteBtn }
-        src={ btnFavoriteRecipe }
-        alt="favoritar"
-      />
     </div>
   );
 }
