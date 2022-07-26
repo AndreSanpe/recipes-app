@@ -36,15 +36,6 @@ function Footer() {
       fixed bottom-0 bg-white w-screen drop-shadow-2xl"
       data-testid="footer"
     >
-      <Link to="/drinks">
-        <span
-          className={ `${drinksClass
-            ? (btnClassSelected)
-            : (btnClassUnselected)}` }
-        >
-          local_bar
-        </span>
-      </Link>
       <Link to="/foods">
         <span
           className={ `${foodsClass
@@ -52,6 +43,15 @@ function Footer() {
             : (btnClassUnselected)}` }
         >
           restaurant
+        </span>
+      </Link>
+      <Link to="/drinks">
+        <span
+          className={ `${drinksClass
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
+        >
+          local_bar
         </span>
       </Link>
       <Link to="/favorite-recipes">
