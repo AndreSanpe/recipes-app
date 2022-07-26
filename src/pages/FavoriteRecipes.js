@@ -4,6 +4,9 @@ import CardFavorite from '../components/CardFavorite';
 import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
+  const btnClassUnselected = 'p-2 mr-1 rounded-md text-xs shadow-md';
+  const btnClassSelected = `p-2 mr-1 rounded-md text-xs 
+  shadow-md bg-orange-500 text-white`;
   const [favorites, setFavorites] = useState([]);
   const [theFilter, setTheFilter] = useState('');
 
@@ -19,44 +22,55 @@ function FavoriteRecipes() {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <Header />
 
-      <button
-        type="button"
-        value="all"
-        data-testid="filter-by-all-btn"
-        style={ { width: '100px', margin: '10px' } }
-        onClick={ (e) => {
-          setTheFilter(e.target.value);
-        } }
-      >
-        All
-      </button>
+      <div className="flex justify-evenly">
+        <button
+          type="button"
+          value="all"
+          className={ `${
+            theFilter === 'all' ? btnClassSelected : btnClassUnselected
+          }` }
+          data-testid="filter-by-all-btn"
+          style={ { width: '100px', margin: '10px' } }
+          onClick={ (e) => {
+            setTheFilter(e.target.value);
+          } }
+        >
+          All
+        </button>
 
-      <button
-        type="button"
-        value="food"
-        data-testid="filter-by-food-btn"
-        style={ { width: '100px', margin: '10px' } }
-        onClick={ (e) => {
-          setTheFilter(e.target.value);
-        } }
-      >
-        Food
-      </button>
+        <button
+          type="button"
+          value="food"
+          className={ `${
+            theFilter === 'food' ? btnClassSelected : btnClassUnselected
+          }` }
+          data-testid="filter-by-food-btn"
+          style={ { width: '100px', margin: '10px' } }
+          onClick={ (e) => {
+            setTheFilter(e.target.value);
+          } }
+        >
+          Food
+        </button>
 
-      <button
-        type="button"
-        value="drink"
-        data-testid="filter-by-drink-btn"
-        style={ { width: '100px', margin: '10px' } }
-        onClick={ (e) => {
-          setTheFilter(e.target.value);
-        } }
-      >
-        Drinks
-      </button>
+        <button
+          type="button"
+          value="drink"
+          className={ `${
+            theFilter === 'drink' ? btnClassSelected : btnClassUnselected
+          }` }
+          data-testid="filter-by-drink-btn"
+          style={ { width: '100px', margin: '10px' } }
+          onClick={ (e) => {
+            setTheFilter(e.target.value);
+          } }
+        >
+          Drinks
+        </button>
+      </div>
 
       <CardFavorite favorites={ favorites } chosenFilter={ theFilter } />
       <Footer />
