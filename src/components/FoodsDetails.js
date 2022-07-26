@@ -162,14 +162,7 @@ function FoodsDetails() {
             onClick={ handleShareBtn }
           >
             <p className="font-bold text-justify text-sm">{ btnShareTxt }</p>
-            <img className="mt-1" alt="share" src={ shareIcon } />
-
-            {/* <span
-              className="material-symbols-outlined pt-1
-          material-symbols-outlined text-stone-800 text-3xl font-light"
-            >
-              share
-            </span> */}
+            <img className="mt-2 ml-4" alt="share" src={ shareIcon } />
           </button>
         </div>
 
@@ -184,8 +177,8 @@ function FoodsDetails() {
           />
         </div>
 
-        <div className="absolute top-72 left-10 pt-0 ml-3 pl-2 bg-white/50 w-36">
-          <h4 data-testid="recipe-category">{recipe.strCategory}</h4>
+        <div className="absolute top-72 left-14 pt-0 ml-3 pl-2 bg-white/50 w-36">
+          <h4 className="text-xl pl-6" data-testid="recipe-category">{recipe.strCategory}</h4>
         </div>
       </section>
 
