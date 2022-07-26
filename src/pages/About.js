@@ -6,6 +6,7 @@ import logoLinkedin from '../images/logoLinkedin.png';
 function About() {
   return (
     <>
+      {/* talvez o melhor seria colocar todas as imagens na msm pagina */}
       <main className="flex flex-column items-center gap-y-8 mb-20">
         <h2
           className="font-bold underline
