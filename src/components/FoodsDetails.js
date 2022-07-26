@@ -129,14 +129,14 @@ function FoodsDetails() {
         to="/foods"
       >
         <span
-          className="material-symbols-outlined
+          className="material-symbols-outlined fixed
         text-gray-900 active:text-orange-600 mt-3 ml-3"
         >
           arrow_back
         </span>
       </Link>
       <h2
-        className="font-bold text-2xl text-center text-orange-500"
+        className="font-bold text-2xl text-center text-orange-500 mt-10"
         data-testid="recipe-title"
       >
         {recipe.strMeal}
@@ -189,7 +189,7 @@ function FoodsDetails() {
         </div>
       </section>
 
-      <section className="flex flex-column  px-14">
+      <section className="flex flex-column  px-14 border-y-2 mt-4">
         <p
           className="text-lg font-semibold m-0 pt-3
           text-start text-orange-500"
@@ -208,7 +208,13 @@ function FoodsDetails() {
           Details:
 
         </p>
-        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <p
+          className="overflow-y-auto h-60 mb-2"
+          data-testid="instructions"
+        >
+          {recipe.strInstructions}
+
+        </p>
       </section>
 
       <iframe

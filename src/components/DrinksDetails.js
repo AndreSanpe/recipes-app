@@ -124,15 +124,14 @@ function DrinksDetails() {
         to="/foods"
       >
         <span
-          className="material-symbols-outlined
+          className="material-symbols-outlined fixed
         text-gray-900 active:text-orange-600 mt-3 ml-3"
         >
           arrow_back
         </span>
       </Link>
-
       <h2
-        className="font-bold text-2xl text-center text-orange-500"
+        className="font-bold text-2xl text-center text-orange-500 mt-10"
         data-testid="recipe-title"
       >
         {recipe.strDrink}
@@ -183,7 +182,7 @@ function DrinksDetails() {
         </div>
       </section>
 
-      <section className="flex flex-column  px-14">
+      <section className="flex flex-column  px-14 border-y-2 mt-4">
         <p
           className="text-lg font-semibold m-0 pt-3
           text-start text-orange-500"
@@ -201,7 +200,13 @@ function DrinksDetails() {
         >
           Details:
         </p>
-        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <p
+          className="overflow-y-auto h-60 mb-2"
+          data-testid="instructions"
+        >
+          {recipe.strInstructions}
+
+        </p>
       </section>
 
       <div className="">
@@ -215,7 +220,7 @@ function DrinksDetails() {
             <Link to={ `/drinks/${recipe.idDrink}/in-progress` }>
               <button
                 className="bg-orange-500 text-white text-sm mb-24 px-24 py-2
-              rounded-md hover:bg-orange-600 active:bg-orange-600 font-semibold"
+                rounded-md hover:bg-orange-600 active:bg-orange-600 font-semibold"
                 type="button"
                 data-testid="start-recipe-btn"
               >
