@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import Footer from '../components/Footer';
 import logoLinkedin from '../images/logoLinkedin.png';
@@ -9,10 +10,10 @@ function About() {
         <div className="w-56">
           <img src="https://ca.slack-edge.com/TMDDFEPFU-U032HR83UUW-c5ef10d86175-512" alt="Imagem da André" />
           <div className="flex align-items-center">
+            <h3>André Santos Pereira</h3>
             <a href="https://www.linkedin.com/in/andresantospereira/" target="_blank" rel="noreferrer">
               <img className="w-12" src={ logoLinkedin } alt="Logo Linkedin" />
             </a>
-            <h3>André Santos Pereira</h3>
           </div>
         </div>
         <div>
