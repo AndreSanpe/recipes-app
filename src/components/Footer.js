@@ -10,6 +10,10 @@ function Footer() {
   const [foodsClass, setFoodsClass] = useState(false);
   const [profileClass, setProfile] = useState(false);
   const [favoriteClass, setFavoriteClass] = useState(false);
+  const btnClassUnselected = `material-symbols-outlined 
+  text-stone-800 text-3xl font-light`;
+  const btnClassSelected = `material-symbols-outlined 
+  text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2`;
 
   useEffect(() => {
     if (history.location.pathname === '/drinks') {
@@ -35,8 +39,8 @@ function Footer() {
       <Link to="/drinks">
         <span
           className={ `${drinksClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           local_bar
         </span>
@@ -44,8 +48,8 @@ function Footer() {
       <Link to="/foods">
         <span
           className={ `${foodsClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           restaurant
         </span>
@@ -53,8 +57,8 @@ function Footer() {
       <Link to="/favorite-recipes">
         <span
           className={ `${favoriteClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           favorite
         </span>
@@ -62,8 +66,8 @@ function Footer() {
       <Link to="/profile">
         <span
           className={ `${profileClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           account_circle
         </span>
