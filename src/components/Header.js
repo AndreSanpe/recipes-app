@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchBar from './SearchBar';
@@ -36,11 +37,11 @@ function Header() {
     getPathname();
   }, [location.pathname]);
 
-  const handleSearchBar = () => {
-    if (showSearchBar === false) {
-      setShowSearchBar(true);
-    } else { setShowSearchBar(false); }
-  };
+  // const handleSearchBar = () => {
+  //   if (showSearchBar === false) {
+  //     setShowSearchBar(true);
+  //   } else { setShowSearchBar(false); }
+  // };
 
   return (
     <section className="py-2 px-2 bg-slate-100 font-sans">
