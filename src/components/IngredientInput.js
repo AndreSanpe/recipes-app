@@ -73,7 +73,9 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
   };
 
   return (
-    <div>
+    <div className="ml-5 pl-3">
+      <p className="text-lg font-semibold m-0 pt-3
+          text-start text-orange-500">Ingredients:</p>
       {
         ingredientList.map((ing, index) => {
           const isChecked = inProgressRecipes[`${ing[1]}`] ? 1 : false;
@@ -82,12 +84,13 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
           toggleButton();
           return (
             <label
-              style={ { display: 'block' } }
+              className="flex h-4 space-x-2"
               key={ index }
               htmlFor={ `${index}-ingredient-step` }
               data-testid={ `${index}-ingredient-step` }
             >
               <input
+                className="h-6 accent-orange-600 "
                 name={ `${ing[1]}` }
                 id={ `${index}-ingredient-step` }
                 type="checkbox"

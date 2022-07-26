@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import context from '../context/context';
 import IngredientInput from '../components/IngredientInput';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import Footer from '../components/Footer';
 
 function RecipeInProgress() {
   const {
@@ -121,66 +123,116 @@ function RecipeInProgress() {
   }, []);
 
   return (
-    <main>
+    <main className="font-sans flex flex-column justify-center mb-10">
       { recipeDetail.type === 'food'
         ? (
-          <div>
+          <>
+            <Link
+              to="/foods/id:"
+            >
+              <span
+                className="material-symbols-outlined
+        text-gray-900 active:text-orange-600 mt-3 ml-3"
+              >
+                arrow_back
+              </span>
+            </Link>
             { srcRecipe.map((el) => (
               <div
                 key={ el.idMeal }
-                style={ {
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-
-                } }
               >
-                <h3 data-testid="recipe-title">{ el.strMeal }</h3>
+                <h3
+                  className="font-bold text-2xl text-center text-orange-500"
+                  data-testid="recipe-title"
+                >
+                  { el.strMeal }
+
+                </h3>
                 <img
-                  style={ { width: '200px' } }
+                  className="rounded-lg w-64 drop-shadow-lg m-auto"
                   src={ el.strMealThumb }
                   alt={ el.strMeal }
                   data-testid="recipe-photo"
                 />
-                <button
-                  type="button"
-                  data-testid="share-btn"
-                  onClick={ copyLinkRecepie }
-                >
-                  Compartilhar
+                <div className="flex flex-row border-b-4 mt-4 space-x-8">
+                  <button
+                    className="absolute top-28 left-24"
+                    type="button"
+                    data-testid="share-btn"
+                    onClick={ copyLinkRecepie }
+                  >
+                    <img alt="share" src={ shareIcon } />
 
-                </button>
-                { copyMessage && <span>Link copied!</span> }
-                <input
-                  style={ { marginLeft: '20px' } }
-                  type="image"
-                  data-testid="favorite-btn"
-                  onClick={ handleFavoriteBtn }
-                  src={ btnFavoriteRecipe }
-                  alt="favoritar"
-                />
-                <p data-testid="recipe-category">{ el.strCategory }</p>
+                  </button>
+                  { copyMessage && <span>Link copied!</span> }
+                  <input
+                    className="absolute top-28 right-24 w-8 material-symbols-outlined
+                  text-orange-600"
+                    type="image"
+                    data-testid="favorite-btn"
+                    onClick={ handleFavoriteBtn }
+                    src={ btnFavoriteRecipe }
+                    alt="favoritar"
+                  />
+                  {/* <p
+                    className="flex-column"
+                    data-testid="recipe-category"
+                  >
+                    Category :
+                    {' '}
+                    { el.strCategory }
 
+                  </p> */}
+                </div>
                 <IngredientInput
                   srcRecipe={ srcRecipe }
                   setBtnDisabled={ setBtnDisabled }
                 />
 
-                <p data-testid="instructions">{ el.strInstructions }</p>
-                <button
-                  type="button"
-                  data-testid="finish-recipe-btn"
-                  disabled={ btnDisabled }
-                  onClick={ () => history.push('/done-recipes') }
-                >
-                  Finalizar Receita
+                <div className="border-y-4 mt-7 mb-4">
+                  <p
+                    className="text-lg font-semibold m-0 p-2 ml-5 pt-3
+          text-start text-orange-500"
+                  >
+                    Details:
 
-                </button>
+                  </p>
+                  <p
+                    className="mx-5 px-2 mx-8 overflow-y-auto h-60"
+                    data-testid="instructions"
+                  >
+                    { el.strInstructions }
+
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-2 font-sans font-bold text-white
+                  hover:bg-orange-600 shadow-lg"
+                    type="button"
+                    data-testid="finish-recipe-btn"
+                    disabled={ btnDisabled }
+                    onClick={ () => history.push('/done-recipes') }
+                  >
+                    Finalizar Receita
+
+                  </button>
+                </div>
               </div>
             ))}
-          </div>
+          </>
         ) : (
-          <div>
+          <>
+            <Link
+              to="/foods/id:"
+            >
+              <span
+                className="material-symbols-outlined
+        text-gray-900 active:text-orange-600 mt-3 ml-3"
+              >
+                arrow_back
+              </span>
+            </Link>
             {
               srcRecipe.map((el) => (
                 <div
@@ -192,50 +244,81 @@ function RecipeInProgress() {
 
                   } }
                 >
-                  <h3 data-testid="recipe-title">{ el.strDrink }</h3>
+                  <h3
+                    className="font-bold text-2xl text-center text-orange-500"
+                    data-testid="recipe-title"
+                  >
+                    { el.strDrink }
+
+                  </h3>
                   <img
-                    style={ { width: '100px' } }
+                    className="rounded-lg w-64 drop-shadow-lg m-auto"
                     src={ el.strDrinkThumb }
                     alt={ el.strDrink }
                     data-testid="recipe-photo"
                   />
-                  <button
-                    type="button"
-                    data-testid="share-btn"
-                    onClick={ copyLinkRecepie }
-                  >
-                    Compartilhar
+                  <div className="flex flex-row border-b-4 mt-4 space-x-8">
+                    <button
+                      className="absolute top-28 left-24"
+                      type="button"
+                      data-testid="share-btn"
+                      onClick={ copyLinkRecepie }
+                    >
+                      <img alt="share" src={ shareIcon } />
+                    </button>
+                    { copyMessage && <span>Link copied!</span> }
+                    <input
+                      className="absolute top-28 right-24 w-8 material-symbols-outlined
+                      text-orange-600"
+                      type="image"
+                      data-testid="favorite-btn"
+                      onClick={ handleFavoriteBtn }
+                      src={ btnFavoriteRecipe }
+                      alt="favoritar"
+                    />
+                  </div>
+                  {/* <p data-testid="recipe-category">{ el.strCategory }</p> */}
+                  <div className="mr-40 pr-4">
+                    <IngredientInput
+                      srcRecipe={ srcRecipe }
+                      setBtnDisabled={ setBtnDisabled }
+                    />
+                  </div>
+                  <div className="border-y-4 mt-7 mb-4">
+                    <p
+                      className="text-lg font-semibold m-0 p-2 ml-5 pt-3
+          text-start text-orange-500"
+                    >
+                      Details:
 
-                  </button>
-                  { copyMessage && <span>Link copied!</span> }
-                  <input
-                    style={ { marginLeft: '20px' } }
-                    type="image"
-                    data-testid="favorite-btn"
-                    onClick={ handleFavoriteBtn }
-                    src={ btnFavoriteRecipe }
-                    alt="favoritar"
-                  />
-                  <p data-testid="recipe-category">{ el.strCategory }</p>
-                  <IngredientInput
-                    srcRecipe={ srcRecipe }
-                    setBtnDisabled={ setBtnDisabled }
-                  />
-                  <p data-testid="instructions">{ el.strInstructions }</p>
-                  <button
-                    type="button"
-                    data-testid="finish-recipe-btn"
-                    disabled={ btnDisabled }
-                    onClick={ () => history.push('/done-recipes') }
-                  >
-                    Finalizar Receita
+                    </p>
+                    <p
+                      className="mx-5 px-2 mx-8 overflow-y-auto h-20"
+                      data-testid="instructions"
+                    >
+                      { el.strInstructions }
 
-                  </button>
+                    </p>
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                      className="items-center bg-orange-500 p-2 rounded-md mb-6 py-1 px-2 font-sans font-bold text-white
+                       hover:bg-orange-600 shadow-lg"
+                      type="button"
+                      data-testid="finish-recipe-btn"
+                      disabled={ btnDisabled }
+                      onClick={ () => history.push('/done-recipes') }
+                    >
+                      Finalizar Receita
+
+                    </button>
+                  </div>
                 </div>
               ))
             }
-          </div>
+          </>
         ) }
+      <Footer />
     </main>
   );
 }
