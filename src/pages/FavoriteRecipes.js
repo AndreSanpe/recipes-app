@@ -4,9 +4,9 @@ import CardFavorite from '../components/CardFavorite';
 import Footer from '../components/Footer';
 
 function FavoriteRecipes() {
-  const btnClassUnselected = 'p-2 mr-1 rounded-md text-xs shadow-md';
+  const btnClassUnselected = 'p-2 mr-1 rounded-md text-xs shadow-md w-24';
   const btnClassSelected = `p-2 mr-1 rounded-md text-xs 
-  shadow-md bg-orange-500 text-white`;
+  shadow-md bg-orange-500 text-white w-24`;
   const [favorites, setFavorites] = useState([]);
   const [theFilter, setTheFilter] = useState('');
 
@@ -33,7 +33,7 @@ function FavoriteRecipes() {
             theFilter === 'all' ? btnClassSelected : btnClassUnselected
           }` }
           data-testid="filter-by-all-btn"
-          style={ { width: '100px', margin: '10px' } }
+          // style={ { width: '100px', margin: '10px' } }
           onClick={ (e) => {
             setTheFilter(e.target.value);
           } }
@@ -48,7 +48,7 @@ function FavoriteRecipes() {
             theFilter === 'food' ? btnClassSelected : btnClassUnselected
           }` }
           data-testid="filter-by-food-btn"
-          style={ { width: '100px', margin: '10px' } }
+          // style={ { width: '100px', margin: '10px' } }
           onClick={ (e) => {
             setTheFilter(e.target.value);
           } }
@@ -63,7 +63,7 @@ function FavoriteRecipes() {
             theFilter === 'drink' ? btnClassSelected : btnClassUnselected
           }` }
           data-testid="filter-by-drink-btn"
-          style={ { width: '100px', margin: '10px' } }
+          // style={ { width: '100px', margin: '10px' } }
           onClick={ (e) => {
             setTheFilter(e.target.value);
           } }
