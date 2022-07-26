@@ -10,6 +10,10 @@ function Footer() {
   const [foodsClass, setFoodsClass] = useState(false);
   const [profileClass, setProfile] = useState(false);
   const [favoriteClass, setFavoriteClass] = useState(false);
+  const btnClassUnselected = `material-symbols-outlined 
+  text-stone-800 text-3xl font-light`;
+  const btnClassSelected = `material-symbols-outlined 
+  text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2`;
 
   useEffect(() => {
     if (history.location.pathname === '/drinks') {
@@ -32,29 +36,29 @@ function Footer() {
       fixed bottom-0 bg-white w-screen drop-shadow-2xl"
       data-testid="footer"
     >
-      <Link to="/drinks">
-        <span
-          className={ `${drinksClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
-        >
-          local_bar
-        </span>
-      </Link>
       <Link to="/foods">
         <span
           className={ `${foodsClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           restaurant
+        </span>
+      </Link>
+      <Link to="/drinks">
+        <span
+          className={ `${drinksClass
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
+        >
+          local_bar
         </span>
       </Link>
       <Link to="/favorite-recipes">
         <span
           className={ `${favoriteClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           favorite
         </span>
@@ -62,8 +66,8 @@ function Footer() {
       <Link to="/profile">
         <span
           className={ `${profileClass
-            ? ('material-symbols-outlined text-stone-800 text-3xl font-light text-orange-600 font-bold active:mb-2')
-            : ('material-symbols-outlined text-stone-800 text-3xl font-light')}` }
+            ? (btnClassSelected)
+            : (btnClassUnselected)}` }
         >
           account_circle
         </span>

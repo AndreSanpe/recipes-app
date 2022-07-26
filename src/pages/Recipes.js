@@ -8,13 +8,15 @@ import fetchFoodCategories from '../services/fetchCategories';
 
 function Recipes() {
   const {
-    states: { meals, foodCategories, filterBtnClassName },
+    states: { meals, foodCategories, nameButton },
     functions: { setMeals, setFoodCategories, filterBtnFood, allBtnFilter },
   } = useContext(context);
 
   const MAX_CARDS = 12;
   const MAX_CATEGORIES = 5;
-
+  const btnClassUnselected = 'p-2 mr-1 rounded-md text-xs shadow-md';
+  const btnClassSelected = `p-2 mr-1 rounded-md text-xs 
+  shadow-md bg-orange-500 text-white`;
   useEffect(() => {
     async function startMeal() {
       setMeals(await fromFoodsName(''));
@@ -34,7 +36,9 @@ function Recipes() {
           {foodCategories
             && (
               <button
-                className="bg-slate-100 p-2 mr-1 rounded-md text-xs shadow-md"
+                className={ `${nameButton === 'All'
+                  ? (btnClassSelected)
+                  : (btnClassUnselected)}` }
                 type="button"
                 data-testid="All-category-filter"
                 onClick={ allBtnFilter }
@@ -47,7 +51,9 @@ function Recipes() {
             index < MAX_CATEGORIES && (
               // button que filtra por categorias
               <button
-                className="p-2 mr-1 rounded-md text-xs shadow-md"
+                className={ `${nameButton === category.strCategory
+                  ? (btnClassSelected)
+                  : (btnClassUnselected)}` }
                 type="button"
                 key={ `${index}${category.strCategory}` }
                 data-testid={ `${category.strCategory}-category-filter` }

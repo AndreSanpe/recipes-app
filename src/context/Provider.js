@@ -23,9 +23,8 @@ function Provider({ children }) {
   const [doneRecipes, SetDoneRecipes] = useState([]);
   const [allFavoriteRecipes, setAllFavoriteRecipes] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [nameButton, setNameButton] = useState('');
+  const [nameButton, setNameButton] = useState('All');
   const history = useHistory();
-  const [filterBtnClassName, setFilterBtnClassName] = useState(false);
 
   useEffect(() => {
     // função que checa se o email é válido
@@ -104,12 +103,12 @@ function Provider({ children }) {
       setMeals(await request.fromFoodsName(''));
     }
     setToggle(!toggle);
-    setFilterBtnClassName(!filterBtnClassName);
-    e.target.classList.add('bg-orange-500');
-    e.target.classList.add('text-white');
   };
 
-  const allBtnFilter = async () => setMeals(await request.fromFoodsName(''));
+  const allBtnFilter = async () => {
+    setNameButton('All');
+    setMeals(await request.fromFoodsName(''));
+  };
 
   const filterBtnDrink = async (e) => {
     setNameButton(e.target.textContent);
@@ -137,7 +136,7 @@ function Provider({ children }) {
     inProgressRecipes,
     doneRecipes,
     allFavoriteRecipes,
-    filterBtnClassName,
+    nameButton,
   };
 
   const functions = {
