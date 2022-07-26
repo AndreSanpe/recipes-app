@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 // import context from '../context/context';
 
 function DoneRecipes() {
+  const unselectedStyle = 'bg-slate-100 p-2 mr-2 rounded-md text-xs shadow-md';
+  const selectedStyle = 'bg-orange-500 p-2 mr-2 rounded-md text-xs shadow-md';
   const [isLinkCopied, setIsLinkCopied] = useState();
   const [typeOfRecipe, setTypeOfRecipe] = useState('');
-  const history = useHistory();
+  const [allStyle, setAllStyle] = useState(unselectedStyle);
+  const [foodsStyle, setFoodsStyle] = useState(unselectedStyle);
+  const [drinksStyle, setDrinkStyle] = useState(unselectedStyle);
   // const {
   //   states: { meals, drinks },
   // } = useContext(context);
@@ -50,103 +54,180 @@ function DoneRecipes() {
     // setDontShowFoods(false);
     // setDontShowDrinks(true);
     setTypeOfRecipe('food');
+    setFoodsStyle(selectedStyle);
+    setAllStyle(unselectedStyle);
+    setDrinkStyle(unselectedStyle);
   };
 
   const showOnlyDrinks = () => {
     // setDontShowFoods(true);
     // setDontShowDrinks(false);
     setTypeOfRecipe('drink');
+    setFoodsStyle(unselectedStyle);
+    setAllStyle(unselectedStyle);
+    setDrinkStyle(selectedStyle);
   };
 
   const showAll = () => {
     // setDontShowFoods(false);
     // setDontShowDrinks(false);
     setTypeOfRecipe('');
+    setFoodsStyle(unselectedStyle);
+    setAllStyle(selectedStyle);
+    setDrinkStyle(unselectedStyle);
   };
 
   return (
-    <div>
+    <div className="font-sans">
       <Header />
-      <button onClick={ showAll } type="button" data-testid="filter-by-all-btn">
-        All
-      </button>
-      <button
-        onClick={ showOnlyFoods }
-        type="button"
-        data-testid="filter-by-food-btn"
+      <div
+        className="flex sticky top-0 py-3 px-2 justify-center
+         bg-white drop-shadow-md w-screen z-10 mb-8"
       >
-        Food
-      </button>
-      <button
-        onClick={ showOnlyDrinks }
-        type="button"
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
-      {doneRecipes.length
+        <button
+          onClick={ showAll }
+          type="button"
+          data-testid="filter-by-all-btn"
+          className={ allStyle }
+        >
+          All
+        </button>
+        <button
+          onClick={ showOnlyFoods }
+          type="button"
+          data-testid="filter-by-food-btn"
+          className={ foodsStyle }
+        >
+          Food
+        </button>
+        <button
+          onClick={ showOnlyDrinks }
+          type="button"
+          data-testid="filter-by-drink-btn"
+          className={ drinksStyle }
+        >
+          Drinks
+        </button>
+      </div>
+      <section className="mt-8 flex flex-wrap justify-evenly">
+        {doneRecipes.length
       && (
         <>
           {doneRecipes
             .filter((i) => i.type.includes(typeOfRecipe))
             .map((el, index) => (el.type === 'food'
               ? (
-                <div key={ el.name }>
-                  <input
-                    style={ { width: '100px' } }
-                    type="image"
-                    src={ el.image }
-                    alt="receipt-card"
-                    onClick={ () => history.push(`/foods/${el.id}`) }
-                    data-testid={ `${index}-horizontal-image` }
-                  />
+                <div className="relative z-0" key={ el.name }>
                   <Link to={ `/foods/${el.id}` }>
-                    <p data-testid={ `${index}-horizontal-name` }>{el.name}</p>
+                    <div className="my-6 z-0">
+                      <img
+                        className="rounded-md  w-36"
+                        style={ { width: '100px' } }
+                        type="image"
+                        src={ el.image }
+                        alt="receipt-card"
+                        // onClick={ () => history.push(`/foods/${el.id}`) }
+                        data-testid={ `${index}-horizontal-image` }
+                      />
+                      <div
+                        className="absolute bottom-2 bg-white/75 w-36 pb-4
+                      flex flex-column"
+                      >
+
+                        <span
+                          className="font-bold text-stone-800 pl-2"
+                          data-testid={ `${index}-horizontal-name` }
+                        >
+                          {el.name}
+                        </span>
+
+                        <span
+                          className="font-normal text-stone-600 pl-2"
+                          data-testid={ `${index}-horizontal-top-text` }
+                        >
+                          {`${el.nationality} - ${el.category}`}
+                        </span>
+                      </div>
+                      <p
+                        className="font-normal text-stone-600 pl-2"
+                        data-testid={ `${index}-horizontal-done-date` }
+                      >
+                        {el.doneDate}
+
+                      </p>
+                      <input
+                        style={ { width: '26px' } }
+                        type="image"
+                        src={ shareIcon }
+                        alt="share icon"
+                        onClick={ () => copyLink(`http://localhost:3000/foods/${el.id}`) }
+                        data-testid={ `${index}-horizontal-share-btn` }
+                      />
+                      {isLinkCopied && <p>Link copied!</p>}
+                      <p
+                        className="font-normal text-stone-600 pl-2"
+                        data-testid={ `${index}-${el.tags[0]}-horizontal-tag` }
+                      >
+                        {el.tags[0]}
+                      </p>
+                      <span
+                        className="font-normal text-stone-600 pl-2"
+                        data-testid={ `${index}-${el.tags[1]}-horizontal-tag` }
+                      >
+                        {el.tags[1]}
+                      </span>
+                    </div>
                   </Link>
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    {`${el.nationality} - ${el.category}`}
-                  </p>
-                  <p data-testid={ `${index}-horizontal-done-date` }>{el.doneDate}</p>
-                  <input
-                    type="image"
-                    src={ shareIcon }
-                    alt="share icon"
-                    onClick={ () => copyLink(`http://localhost:3000/foods/${el.id}`) }
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />
-                  {isLinkCopied && <p>Link copied!</p>}
-                  <p data-testid={ `${index}-${el.tags[0]}-horizontal-tag` }>
-                    {el.tags[0]}
-                  </p>
-                  <p data-testid={ `${index}-${el.tags[1]}-horizontal-tag` }>
-                    {el.tags[1]}
-                  </p>
                 </div>
               ) : (
-                <div key={ el.name }>
-                  <input
-                    style={ { width: '100px' } }
-                    type="image"
-                    src={ el.image }
-                    alt="receipt-card"
-                    onClick={ () => history.push(`/drinks/${el.id}`) }
-                    data-testid={ `${index}-horizontal-image` }
-                  />
+                <div className="relative z-0" key={ el.name }>
                   <Link to={ `/drinks/${el.id}` }>
-                    <p data-testid={ `${index}-horizontal-name` }>{el.name}</p>
+                    <div className="my-6 z-0">
+                      <img
+                        className="rounded-md  w-36"
+                        style={ { width: '100px' } }
+                        type="image"
+                        src={ el.image }
+                        alt="receipt-card"
+                        // onClick={ () => history.push(`/drinks/${el.id}`) }
+                        data-testid={ `${index}-horizontal-image` }
+                      />
+                      <div
+                        className="absolute bottom-2 bg-white/75 w-36 pb-4
+                      flex flex-column"
+                      >
+                        <span
+                          className="font-bold text-stone-800 pl-2"
+                          data-testid={ `${index}-horizontal-name` }
+                        >
+                          {el.name}
+
+                        </span>
+                        <span
+                          className="font-normal text-stone-600 pl-2"
+                          data-testid={ `${index}-horizontal-top-text` }
+                        >
+                          {el.alcoholicOrNot}
+                        </span>
+                      </div>
+                      <p
+                        className="font-normal text-stone-600 pl-2"
+                        data-testid={ `${index}-horizontal-done-date` }
+                      >
+                        {el.doneDate}
+
+                      </p>
+                      <input
+                        style={ { width: '26px' } }
+                        type="image"
+                        src={ shareIcon }
+                        alt="share icon"
+                        onClick={ () => copyLink(`http://localhost:3000/drinks/${el.id}`) }
+                        data-testid={ `${index}-horizontal-share-btn` }
+                      />
+                      {isLinkCopied && <p>Link copied!</p>}
+                    </div>
                   </Link>
-                  <p data-testid={ `${index}-horizontal-top-text` }>
-                    {el.alcoholicOrNot}
-                  </p>
-                  <p data-testid={ `${index}-horizontal-done-date` }>{el.doneDate}</p>
-                  <input
-                    type="image"
-                    src={ shareIcon }
-                    alt="share icon"
-                    onClick={ () => copyLink(`http://localhost:3000/drinks/${el.id}`) }
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />
-                  {isLinkCopied && <p>Link copied!</p>}
                 </div>
               )))}
           {/* {console.log(doneRecipes)}
@@ -157,6 +238,7 @@ function DoneRecipes() {
             ))} */}
         </>
       )}
+      </section>
       <Footer />
     </div>
   );
