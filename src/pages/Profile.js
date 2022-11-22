@@ -51,7 +51,7 @@ function Profile() {
         <div className="flex flex-column pl-6">
           <p className="font-bold text-lg m-0"> Welcome,</p>
           <p className="font-bold m-0" data-testid="profile-email">{ callEmailFromStorage() }</p>
-          <p className="text-normal m-0">It's nice having you back</p>
+          <p className="text-normal m-0">It is nice having you back</p>
 
         </div>
       </div>

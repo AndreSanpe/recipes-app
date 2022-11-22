@@ -119,7 +119,8 @@ function DoneRecipes() {
               .filter((i) => i.type.includes(typeOfRecipe))
               .map((el, index) => (el.type === 'food' ? (
                 <div
-                  className="flex m-2 p-2 rounded-md border-2 border-inherit drop-shadow-2xl"
+                  className="flex m-2 p-2
+                  rounded-md border-2 border-inherit drop-shadow-2xl"
                   key={ el.name }
                 >
                   <div className="w-1/2">
@@ -170,11 +171,6 @@ function DoneRecipes() {
                           {el.tags[1]}
                         </p>
                       </div>
-
-                      {/* <div
-                      className="absolute bottom-2 bg-white/75 w-36 pb-4
-                      flex flex-column"
-                    /> */}
 
                       <div className="relative -top-2 right- w-10">
                         <input
@@ -243,12 +239,6 @@ function DoneRecipes() {
 
                 </div>
               )))}
-            {/* {console.log(doneRecipes)}
-          {!dontShowDrinks && doneRecipes
-            .filter((i) => i.type === 'drink')
-            .map((el, index) => (
-
-            ))} */}
           </>
         )}
       </section>

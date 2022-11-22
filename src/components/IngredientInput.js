@@ -58,7 +58,7 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
   // }, [inProgressRecipes]);
 
   const toggleButton = () => {
-    ingredientList.forEach((el) => {
+    ingredientList.forEach(() => {
       const numOfChecked = Object.values(validateBtn)
         .filter((it) => ((it === true)));
       const nameIng = Object.keys(inProgressRecipes)
@@ -74,8 +74,13 @@ function IngredientInput({ srcRecipe, setBtnDisabled }) {
 
   return (
     <div className="ml-5 pl-3">
-      <p className="text-lg font-semibold m-0 pt-3
-          text-start text-orange-500">Ingredients:</p>
+      <p
+        className="text-lg font-semibold m-0 pt-3
+          text-start text-orange-500"
+      >
+        Ingredients:
+
+      </p>
       {
         ingredientList.map((ing, index) => {
           const isChecked = inProgressRecipes[`${ing[1]}`] ? 1 : false;

@@ -14,18 +14,14 @@ function RecipeInProgress() {
     states: { recipeDetail },
     functions: { setRecipeDetail },
   } = useContext(context);
-
   const { recipe } = recipeDetail;
-
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [copyMessage, setCopyMessage] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [btnFavoriteRecipe, setBtnFavoriteRecipe] = useState(whiteHeartIcon);
-
   const history = useHistory();
   const { id: idRoute } = useParams();
   const localStorageFavs = localStorage.getItem('favoriteRecipes');
-
   const copyLinkRecepie = () => {
     const url = window.location.href;
     const newURL = url.replace('/in-progress', '');
