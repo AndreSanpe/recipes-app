@@ -1,9 +1,9 @@
-
-
-<div style="display: inline_block" align="center"><br>
-  # Recipes App
+ # Recipes App
 
 A simple web-based application for managing your recipes.
+
+<div style="display: inline_block" align="center"><br>
+
   <img align="center" alt="group-8-logo" height="150" src="https://user-images.githubusercontent.com/59103410/203330186-f7fb5699-ee9a-4d2b-a093-ae7045ca02f2.png">
 </div>
 
@@ -40,7 +40,7 @@ Contributions are always welcome! Please feel free to submit a pull request if y
 
 ## License
 
-This app is open source and is licensed under the [MIT license](LICENSE).
+Sanpe Tunes is licensed under the [Trybe](https://www.betrybe.com/).
 
 
 
